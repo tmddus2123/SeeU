@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginBottom="13dp"
+                android:src="@drawable/small_logo">
+            </ImageView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="☆ 구역을 선택해주세요"
+                android:layout_marginLeft="30dp"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                android:src="@drawable/hallsmall">
+            </ImageView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="4dp">
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="58dp"
+                android:text="1구역"
+                android:id="@+id/btn1"></Button>
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="58dp"
+                android:text="2구역"
+                android:id="@+id/btn2"></Button>
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="58dp"
+                android:text="3구역"
+                android:id="@+id/btn3"></Button>
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="58dp"
+                android:text="4구역"
+                android:id="@+id/btn4"></Button>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="5dp">
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="58dp"
+                android:text="5구역"
+                android:id="@+id/btn5"></Button>
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="58dp"
+                android:text="6구역"
+                android:id="@+id/btn6"></Button>
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="58dp"
+                android:text="7구역"
+                android:id="@+id/btn7"></Button>
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="58dp"
+                android:text="8구역"
+                android:id="@+id/btn8"></Button>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="5dp">
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="58dp"
+                android:text="9구역"
+                android:id="@+id/btn9"></Button>
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="58dp"
+                android:text="10구역"
+                android:id="@+id/btn10"></Button>
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="58dp"
+                android:text="11구역"
+                android:id="@+id/btn11"></Button>
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="58dp"
+                android:text="12구역"
+                android:id="@+id/btn12"></Button>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="5dp">
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="58dp"
+                android:text="13구역"
+                android:id="@+id/btn13"></Button>
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="58dp"
+                android:text="14구역"
+                android:id="@+id/btn14"></Button>
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="58dp"
+                android:text="15구역"
+                android:id="@+id/btn15"></Button>
+
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
