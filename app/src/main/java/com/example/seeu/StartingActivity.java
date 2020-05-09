@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.example.seeu.ui.login.LoginActivity;
+
 public class StartingActivity extends Activity {
 
     @Override
@@ -19,7 +21,7 @@ public class StartingActivity extends Activity {
             public void run(){
                 /* MainActivity를 새로운 intent로 불러와서 시작함.
                    현재 intent는 종료 */
-                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
