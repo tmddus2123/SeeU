@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.seeu.MainActivity;
@@ -20,6 +21,7 @@ public class LoginActivity extends Activity {
 
     private EditText mIDView;
     private EditText mPasswordView;
+    private ImageView logoView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +32,11 @@ public class LoginActivity extends Activity {
 
         mIDView = (EditText) findViewById(R.id.ID);
         mPasswordView = (EditText) findViewById(R.id.password);
+        logoView = (ImageView)findViewById(R.id.imageView);
+
+        logoView.setImageResource(R.drawable.small_logo);
 
         // 서버,디비 연동 이후 기능 추가예정. 이벤트 핸들러만 추가
-
         mIDView.setOnEditorActionListener(new TextView.OnEditorActionListener()
         {
             @Override
