@@ -27,11 +27,11 @@ public class MainActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.hide();
 
-        myRBtn = (Button)findViewById(R.id.myRBtn);
-        loginBtn = (Button)findViewById(R.id.loginBtn);
-        logoutBtn = (Button)findViewById(R.id.logoutBtn);
-        searchBtn = (Button)findViewById(R.id.searchBtn);
-        NameTV = (TextView)findViewById(R.id.UserName);
+        myRBtn = (Button) findViewById(R.id.myRBtn);
+        loginBtn = (Button) findViewById(R.id.loginBtn);
+        logoutBtn = (Button) findViewById(R.id.logoutBtn);
+        searchBtn = (Button) findViewById(R.id.searchBtn);
+        NameTV = (TextView) findViewById(R.id.UserName);
 
         login = true; // 나중에 LoginActivity에서 받아오기!!!!!!
         User = "See U"; // 나중에 Login하면 User name 받아오기!!!!!
@@ -71,21 +71,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 /* 검색하기 버튼을 누르면 좌석 액티비티로 이동 */
-                /*
+
                 Intent intent = new Intent(getBaseContext(), ConcertActivity.class);
                 startActivity(intent);
                 finish();
-                */
+
             }
         });
 
         /* 로그인 했으면 로그인 하기 버튼(loginBtn)삭제,
            비회원이면 로그아웃(logoutBtn), 내가 쓴 글 보기(myRBtn) 삭제 */
-        if(login) {
+        if (login) {
             loginBtn.setVisibility(View.GONE);
             NameTV.setText(User.toString());
-        }
-        else {
+        } else {
             logoutBtn.setVisibility(View.GONE);
             myRBtn.setVisibility(View.GONE);
             NameTV.setText("비회원");

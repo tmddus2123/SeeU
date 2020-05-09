@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".WriteReviewActivity">
+
+    <ImageView
+        android:id="@+id/Logo"
+        android:layout_width="152dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/small_logo" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:textSize="30sp"
+            android:id="@+id/Area"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="구역"
+            android:textSize="30sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:id="@+id/linearLayout"
+        android:layout_width="383dp"
+        android:layout_height="457dp"
+        android:layout_gravity="center"
+        android:background="@drawable/gradation"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="235dp"
+                android:layout_height="48dp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="202dp"
+            android:layout_height="117dp"
+            android:layout_margin="10dp"
+            android:src="@android:drawable/ic_menu_gallery" />
+
+        <EditText
+            android:id="@+id/R"
+            android:layout_width="358dp"
+            android:layout_height="164dp"
+            android:layout_gravity="center"
+            android:background="#ffffff"
+            android:hint="후기를 작성해주세요" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/WRback"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:background="#D7D7D7"
+                android:text="뒤로가기"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="38dp"
+                tools:layout_editor_absoluteY="642dp" />
+
+            <Button
+                android:id="@+id/WRwrite"
+                android:layout_width="160dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="#FBDE55"
+                android:text="작성하기"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="226dp"
+                tools:layout_editor_absoluteY="642dp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>
