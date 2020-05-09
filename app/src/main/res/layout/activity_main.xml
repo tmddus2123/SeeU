@@ -13,10 +13,89 @@
         android:layout_marginLeft="10dp"
         android:src="@drawable/small_logo" />
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="247dp"
         android:layout_height="wrap_content"
-        android:id="@+id/myRBtn"
-        android:text="내가 쓴 글 보기"/>
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/roundback2">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:id="@+id/UserName" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text=" 님 안녕하세요 !" />
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:id="@+id/logoutBtn"
+                android:text="로그아웃"
+                android:background="#D3D3D3"/>
+            <Button
+                android:id="@+id/myRBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:text="  내가 쓴 글 보기  "
+                android:background="@color/main1"/>
+        </LinearLayout>
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:background="@color/main1"
+            android:text="로그인 하기"
+            android:id="@+id/loginBtn"/>
+    </LinearLayout>
+
+    <!--
+    여기가 공연장 선택/ 검색
+    -->
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="공연장을 선택해주세요."/>
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#999999"
+            android:dividerHeight="1dp"></ListView>
+    </LinearLayout>
+    <Button
+        android:id="@+id/searchBtn"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/roundback1"
+        android:text="검색하기" />
 </LinearLayout>

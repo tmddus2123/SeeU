@@ -14,36 +14,36 @@
         android:src="@drawable/small_logo" />
 
     <TextView
+        android:textAlignment="center"
         android:id="@+id/textView"
         android:layout_gravity="center"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:text="내가 쓴 후기"
+        android:background="@drawable/roundback1"
+        android:text="내가 작성한 후기"
         android:textSize="30dp" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_gravity="center"
-        >
+        android:orientation="vertical"
+        android:background="@drawable/gradation">
 
-        <!--
-
-        list view..
-
-        -->
+        <ListView
+            android:id="@+id/myRList"
+            android:layout_width="wrap_content"
+            android:layout_height="457dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
             android:text="클릭하면 후기를 작성한 페이지로 이동합니다."
             android:textSize="18sp" />
     </LinearLayout>
-
-
 
 </LinearLayout>
