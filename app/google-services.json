@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "27360748340",
+    "firebase_url": "https://seeu-70a59.firebaseio.com",
+    "project_id": "seeu-70a59",
+    "storage_bucket": "seeu-70a59.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:27360748340:android:7a447acfa3c5aa2a633b61",
+        "android_client_info": {
+          "package_name": "com.example.seeu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "27360748340-rt9cck1uiribiufjam2dd416uatmegvm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.seeu",
+            "certificate_hash": "f0aedfd1168e8dc87ab4147d2ed89b0cfd0e39f4"
+          }
+        },
+        {
+          "client_id": "27360748340-kkql3e8ld6laspfb39s48pnlfhvjeu8f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALaTnmQLmbdFHQXHtPRjVNGbFHftLoCJE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "27360748340-kkql3e8ld6laspfb39s48pnlfhvjeu8f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
