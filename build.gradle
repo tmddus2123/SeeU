@@ -27,3 +27,24 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+buildscript {  // 파이어베이스 - 프로젝트 수준의 build.gradle 추가
+    repositories {
+        // Check that you have the following line (if not, add it):
+        google()  // Google's Maven repository
+    }
+    dependencies {
+        //...
+        // Add this line
+        classpath 'com.google.gms:google-services:4.3.3'
+    }
+}
+
+allprojects {
+    //...
+    repositories {
+        // Check that you have the following line (if not, add it):
+        google()  // Google's Maven repository
+        // ...
+    }
+}
