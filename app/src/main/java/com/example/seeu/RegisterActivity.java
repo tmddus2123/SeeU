@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.seeu.ui.login.LoginActivity;
@@ -21,6 +22,11 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+
+        /*Action Bar(Title bar) 받아와서 없애기*/
+        ActionBar ab = getSupportActionBar();
+        ab.hide();
 
         Button mCancelButton = (Button) findViewById(R.id.cancel); // 뒤로가기 버튼
         Button mJoinButton = (Button) findViewById(R.id.SignUp); // 가입하기 버튼

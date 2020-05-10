@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
+
 import com.example.seeu.MainActivity;
 import com.example.seeu.R;
 import com.example.seeu.RegisterActivity;
