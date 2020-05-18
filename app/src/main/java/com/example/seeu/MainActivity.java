@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     Button myRBtn,loginBtn,logoutBtn,searchBtn;
     TextView NameTV;
     Boolean login;
-    String User;
+    String userNickname;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,8 +33,9 @@ public class MainActivity extends AppCompatActivity {
         searchBtn = (Button) findViewById(R.id.searchBtn);
         NameTV = (TextView) findViewById(R.id.UserName);
 
-        login = true; // 나중에 LoginActivity에서 받아오기!!!!!!
-        User = "See U"; // 나중에 Login하면 User name 받아오기!!!!!
+        Intent getintent = getIntent();
+        login = getintent.getExtras().getBoolean("login");
+        userNickname = getintent.getExtras().getString("userNickname");
 
         myRBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
                 /* 로그아웃 하는 코드 추가! */
                 Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                intent.putExtra("login", false);
                 startActivity(intent);
                 finish();
             }
@@ -83,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
            비회원이면 로그아웃(logoutBtn), 내가 쓴 글 보기(myRBtn) 삭제 */
         if (login) {
             loginBtn.setVisibility(View.GONE);
-            NameTV.setText(User.toString());
+            NameTV.setText(userNickname);
         } else {
             logoutBtn.setVisibility(View.GONE);
             myRBtn.setVisibility(View.GONE);
