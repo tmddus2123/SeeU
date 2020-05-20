@@ -86,6 +86,9 @@ public class LoginActivity extends Activity {
             public void onClick(View view) {
                 /*디비 연동 전 - 로그인 버튼 누르면 메인액티비티로 */
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                // 로그인 성공했으면 main의 login 값 true로 넘겨주기
+                intent.putExtra("login", true);
+                intent.putExtra("userNickname","SeeU"); //디비에서 로그인한 아이디의 짝인 닉네임불러오기
                 startActivity(intent);
                 finish();
             }
@@ -96,6 +99,7 @@ public class LoginActivity extends Activity {
             public void onClick(View v) {
                 /* 비회원 버튼 누르면 메인 액티비티로 */
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("login", false);
                 startActivity(intent);
                 finish();
             }

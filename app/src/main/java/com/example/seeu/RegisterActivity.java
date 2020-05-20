@@ -74,8 +74,12 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+<<<<<<< HEAD
 
 
+=======
+        mNicknameView = (EditText)findViewById(R.id.Nickname);
+>>>>>>> upstream/master
     }
 
     private void Login_page(View v) {
@@ -86,6 +90,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void Main_page(View v) {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("login", true);
+        intent.putExtra("userNickname",mNicknameView.getText().toString());
         startActivity(intent);
         finish();
     }
