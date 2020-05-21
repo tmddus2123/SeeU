@@ -44,7 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         // 파이어베이스 인증 객체 선언
         firebaseAuth = FirebaseAuth.getInstance();
-
+        mNicknameView = (EditText)findViewById(R.id.Nickname);
         mEmailView = findViewById(R.id.Email);
         mPasswordView = findViewById(R.id.PW);
 
@@ -74,12 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-<<<<<<< HEAD
 
-
-=======
-        mNicknameView = (EditText)findViewById(R.id.Nickname);
->>>>>>> upstream/master
     }
 
     private void Login_page(View v) {
