@@ -6,70 +6,99 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".WriteReviewActivity">
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <ImageView
         android:id="@+id/Logo"
-        android:layout_width="152dp"
+        android:layout_width="150dp"
         android:layout_height="60dp"
-        android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/small_logo" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:textSize="30sp"
-            android:id="@+id/Area"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="구역"
-            android:textSize="30sp" />
-
-    </LinearLayout>
-
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="/ 후기쓰기"
+        android:textColor="@color/main2"
+        android:textStyle="bold"
+        android:textSize="30sp" />
+</LinearLayout>
     <LinearLayout
 
         android:id="@+id/linearLayout"
-        android:layout_width="383dp"
-        android:layout_height="457dp"
-        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:background="@drawable/gradation"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:id="@+id/Concert"
+                android:textColor="#000000"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textSize="20sp"
+                android:id="@+id/Area"
+                android:textColor="#000000"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="구역"
+                android:textSize="20sp"
+                android:textColor="#000000"/>
+
+        </LinearLayout>
+
+
+        <ImageButton
+            android:id="@+id/addImage"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="20dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="#ffffff">
 
             <RatingBar
                 android:id="@+id/ratingBar"
-                android:layout_width="235dp"
-                android:layout_height="48dp" />
+                android:isIndicator="false"
+                android:numStars="5"
+                android:rating="3"
+                android:stepSize="0.5"
+                android:max="5"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="202dp"
-            android:layout_height="117dp"
-            android:layout_margin="10dp"
-            android:src="@android:drawable/ic_menu_gallery" />
-
         <EditText
-            android:id="@+id/R"
-            android:layout_width="358dp"
-            android:layout_height="164dp"
-            android:layout_gravity="center"
+            android:id="@+id/strReview"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="15dp"
+            android:gravity="center"
             android:background="#ffffff"
-            android:hint="후기를 작성해주세요" />
+            android:hint="후기를 작성해주세요"
+            android:textColor="#000000"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -77,12 +106,11 @@
 
             <Button
                 android:id="@+id/WRback"
-                android:layout_width="150dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginRight="15dp"
                 android:layout_weight="1"
                 android:background="#D7D7D7"
                 android:text="뒤로가기"
@@ -92,13 +120,12 @@
 
             <Button
                 android:id="@+id/WRwrite"
-                android:layout_width="160dp"
+                android:layout_width="165dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp"
-                android:background="#FBDE55"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@color/main2"
                 android:text="작성하기"
                 android:textStyle="bold"
                 tools:layout_editor_absoluteX="226dp"
