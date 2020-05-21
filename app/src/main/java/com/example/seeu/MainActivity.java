@@ -137,11 +137,11 @@ public class MainActivity extends AppCompatActivity {
                         });
 
                 /* ((((((임시로)))))) 검색하기 버튼을 누르면 좌석 액티비티로 이동 */
-                /*
+
                 Intent intent = new Intent(getBaseContext(), ConcertActivity.class);
                 startActivity(intent);
                 finish();
-                */
+
 
             }
         });

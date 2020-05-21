@@ -75,6 +75,7 @@ public class ConcertActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 Intent intent = new Intent(getBaseContext(), ReadReviewActivity.class);
                                 startActivity(intent);
+                                finish();
                             }
                         })
                                 .setNeutralButton("후기작성", new DialogInterface.OnClickListener(){
@@ -83,6 +84,7 @@ public class ConcertActivity extends AppCompatActivity {
                                         //후기 작성 페이지로 넘어가기
                                         Intent intent = new Intent(getBaseContext(), WriteReviewActivity.class);
                                         startActivity(intent);
+                                        finish();
                                     }
                                 })
                                 //.setCancelable(false)
