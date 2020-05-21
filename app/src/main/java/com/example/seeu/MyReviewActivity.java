@@ -9,6 +9,8 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.seeu.MyReview.ListViewItem;
+import com.example.seeu.MyReview.MyListAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -17,27 +19,29 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class MyReview extends AppCompatActivity {
+public class MyReviewActivity extends AppCompatActivity {
 
     ListView myRList;
-    ArrayList<String> arrayList = new ArrayList<>();
-    ArrayAdapter<String> arrayAdapter;
+    ArrayList<ListViewItem> arrayList = new ArrayList<ListViewItem>();
+    MyListAdapter arrayAdapter;
+
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_review);
 
-        FirebaseFirestore db;
-
         /*Action Bar(Title bar) 받아와서 없애기*/
         ActionBar ab = getSupportActionBar();
         ab.hide();
 
         myRList = (ListView)findViewById(R.id.myRList);
-        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayList);
+        arrayAdapter = new MyListAdapter();
         myRList.setAdapter(arrayAdapter);
+
         db = FirebaseFirestore.getInstance();
 
         db.collection("Posting")
@@ -48,8 +52,10 @@ public class MyReview extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                String str=document.get("text").toString();
-                                arrayList.add(str);
+
+                                String str=document.get("text").toString().trim();
+                                //arrayAdapter.addItem(str,str,str);
+                                arrayAdapter.addItem("울산 현대예술관 소공연장","A","짱 불편함 ;;");
                                 myRList.invalidateViews();
                                 Log.d("FireStore READ", document.getId() + " => " + document.getData());
                             }
