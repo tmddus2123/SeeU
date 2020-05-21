@@ -52,10 +52,14 @@ dependencies {
 }
 
 dependencies {
+    implementation 'com.google.firebase:firebase-database:16.0.4'
+    implementation 'com.google.firebase:firebase-firestore:21.4.3'
     // ...
     implementation 'com.google.firebase:firebase-core:17.0.0'
     implementation 'com.google.firebase:firebase-auth:19.1.0'
+}
 
-    // Getting a "Could not find" error? Make sure that you've added
-    // Google's Maven repository to your root-level build.gradle file
+dependencies {
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.google.firebase:firebase-firestore:17.1.2'
 }

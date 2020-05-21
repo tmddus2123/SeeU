@@ -73,8 +73,6 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
     private void Login_page(View v) {
