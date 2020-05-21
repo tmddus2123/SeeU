@@ -15,7 +15,7 @@
 
         <ImageView
             android:layout_width="140dp"
-            android:layout_height="60dp"
+            android:layout_height="80dp"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
             android:src="@drawable/small_logo" />
@@ -24,7 +24,7 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="25dp"
             android:text="/ 후기보기"
             android:textColor="@color/main2"
             android:textSize="30sp"

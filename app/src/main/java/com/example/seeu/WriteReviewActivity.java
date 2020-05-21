@@ -77,8 +77,6 @@ public class WriteReviewActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //뒤로가기 누르면 다시 콘서트 창으로
-                Intent intent = new Intent(getBaseContext(), ConcertActivity.class);
-                startActivity(intent);
                 finish();
             }
         });
