@@ -74,28 +74,35 @@
     -->
     <LinearLayout
         android:layout_width="350dp"
-        android:layout_height="350dp"
+        android:layout_height="380dp"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="20dp"
         android:orientation="vertical"
         android:layout_gravity="center">
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="공연장을 선택해주세요."/>
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/searchStr"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:hint="공연장 검색하기">
+            </EditText>
+
+            <ImageButton
+                android:id="@+id/searchBtn"
+                android:layout_width="50dp"
+                android:layout_height="45dp"
+                android:src="@android:drawable/ic_search_category_default" />
+        </LinearLayout>
 
         <ListView
             android:id="@+id/listView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="#999999"
-            android:dividerHeight="1dp"></ListView>
+            android:dividerHeight="1dp">
+
+        </ListView>
     </LinearLayout>
-    <Button
-        android:id="@+id/searchBtn"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/roundback1"
-        android:text="검색하기" />
 </LinearLayout>
