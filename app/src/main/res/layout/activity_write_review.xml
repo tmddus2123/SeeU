@@ -12,7 +12,7 @@
     <ImageView
         android:id="@+id/Logo"
         android:layout_width="150dp"
-        android:layout_height="60dp"
+        android:layout_height="80dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/small_logo" />
@@ -20,7 +20,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="25dp"
         android:text="/ 후기쓰기"
         android:textColor="@color/main2"
         android:textStyle="bold"
