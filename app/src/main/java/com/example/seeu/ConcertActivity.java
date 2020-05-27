@@ -92,9 +92,8 @@ public class ConcertActivity extends AppCompatActivity {
 
         });
 
-
         /*Action Bar(Title bar) 받아와서 없애기*/
-                ActionBar ab = getSupportActionBar();
+        ActionBar ab = getSupportActionBar();
         ab.hide();
 
     }
