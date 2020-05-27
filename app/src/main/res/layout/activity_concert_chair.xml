@@ -146,6 +146,11 @@
                 android:layout_height="58dp"
                 android:text="15구역"
                 android:id="@+id/btn15"></Button>
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="58dp"
+                android:text="16구역"
+                android:id="@+id/btn16"></Button>
 
         </LinearLayout>
     </LinearLayout>
