@@ -28,69 +28,79 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static android.graphics.Color.TRANSPARENT;
 
 public class ConcertActivity extends AppCompatActivity {
 
-    Button reviewBtn;
-    int count = 0;
+    Button[] btnArray = null;
+    int[] count = { 0 };
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_concert_chair);
+        btnArray = new Button[16];
+        count = new int[16];
+        int[] btnID = { R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5, R.id.btn6, R.id.btn7, R.id.btn8, R.id.btn9, R.id.btn10,
+                        R.id.btn11, R.id.btn12, R.id.btn13, R.id.btn14, R.id.btn15, R.id.btn16};
 
-        reviewBtn = (Button) findViewById(R.id.btn1);
+        for(int i=0;i<16;i++){
+            btnArray[i] = (Button)findViewById(btnID[i]);
+        }
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+        //Posting 컬렉션안에 SeatID가 "a구역"인 데이터를 찾아서 갯수를 count 배열에 넣고, 버튼색을 변경한다.
+        for(int a=1;a<17;a++){
+            final int b = a;
+            db.collection("Posting")
+                    .whereEqualTo("SeatID", a + "구역")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            //데이터가 있으면
+                            //Btn1.setBackgroundColor(Color.parseColor("#A0DFDF"));
+                            if(task.isSuccessful()){
 
-        //Posting 컬렉션안에 SeatID가 USS1인 데이터를 찾는다
-        db.collection("Posting")
-                .whereEqualTo("SeatID", "uss1")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        //데이터가 있으면
-                        if(task.isSuccessful()){
-                            reviewBtn.setBackgroundColor(Color.parseColor("#A0DFDF"));
-                            for(QueryDocumentSnapshot document : task.getResult()){
-                                count += 1;
+                                for(QueryDocumentSnapshot document : task.getResult()){
+                                    count[b-1] += 1;
+                                }
+                                if(count[b-1] > 0){
+                                    btnArray[b-1].setBackgroundColor(Color.parseColor("#A0DFDF"));
+                                }
                             }
-                        } else{
-                                // 데이터가 존재하지 않습니다. uss2로 해놨는데도 버튼 색깔이 바뀌는거 보면
-                                // if문이 일단 데이터가 있으면 일지두,,,
                         }
-                    }
-                });
+                    });
+        }
 
-        reviewBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder oDialog = new AlertDialog.Builder(ConcertActivity.this);
-                         oDialog.setTitle(" ").setMessage(count + "개의 후기가 존재합니다.").setPositiveButton("후기보기", new DialogInterface.OnClickListener(){
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(getBaseContext(), ReadReviewActivity.class);
-                                startActivity(intent);
-                            }
-                        })
-                                .setNeutralButton("후기작성", new DialogInterface.OnClickListener(){
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        //후기 작성 페이지로 넘어가기
-                                        Intent intent = new Intent(getBaseContext(), WriteReviewActivity.class);
-                                        startActivity(intent);
-                                    }
-                                })
-                                //.setCancelable(false)
-                                .show();
+        //btn배열마다 setonCLick을 부여해준 후, alert에 count배열을 출력해 몇 개의 후기가 있는지 알려주고 후기보기/후기작성을 선택한다.
+        for(int i=0;i<16;i++) {
+            final int j = i;
+            btnArray[i].setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder oDialog = new AlertDialog.Builder(ConcertActivity.this);
+                    oDialog.setTitle(" ").setMessage(count[j] + "개의 후기가 존재합니다.").setPositiveButton("후기보기", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(getBaseContext(), ReadReviewActivity.class);
+                            startActivity(intent);
+                        }
+                    })
+                            .setNeutralButton("후기작성", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //후기 작성 페이지로 넘어가기
+                                    Intent intent = new Intent(getBaseContext(), WriteReviewActivity.class);
+                                    startActivity(intent);
+                                }
+                            })
+                            //.setCancelable(false)
+                            .show();
 
                 }
 
-        });
+            });
+        }
 
         /*Action Bar(Title bar) 받아와서 없애기*/
         ActionBar ab = getSupportActionBar();
