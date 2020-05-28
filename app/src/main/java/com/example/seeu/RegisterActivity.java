@@ -2,6 +2,7 @@ package com.example.seeu;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -18,17 +19,21 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import com.example.seeu.ui.login.LoginActivity;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
+    private static final String TAG = "RegisterActivity";
 
-
-    // 비밀번호 정규식
-    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^[a-zA-Z0-9!@.#$%^&*?_~]{4,16}$");
-    // 파이어베이스 인증 객체 생성
-    private FirebaseAuth firebaseAuth;
-    // 회원가입에 필요한 친구들
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseFirestore mStore = FirebaseFirestore.getInstance();
     private EditText mNicknameView;
     private EditText mIDView;
     private EditText mPasswordView;
@@ -42,12 +47,10 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        // 파이어베이스 인증 객체 선언
-        firebaseAuth = FirebaseAuth.getInstance();
-
         mNicknameView = (EditText)findViewById(R.id.Nickname);
         mEmailView = findViewById(R.id.Email);
         mPasswordView = findViewById(R.id.PW);
+        mIDView = findViewById(R.id.ID);
 
 
         /*Action Bar(Title bar) 받아와서 없애기*/
@@ -67,12 +70,44 @@ public class RegisterActivity extends AppCompatActivity {
         mJoinButton = (Button)findViewById(R.id.SignUp);
         mJoinButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                SignUp(v);
-                if(firebaseAuth.getCurrentUser() != null) {
-                    finish();
-                    Main_page(v);
-                }
+                mAuth.createUserWithEmailAndPassword(mEmailView.getText().toString(), mPasswordView.getText().toString())
+                        .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    if(user != null) {
+                                        HashMap<Object, String> userMap = new HashMap<>();
+                                        //키값
+                                        userMap.put(FirebaseID.documentId, user.getUid());
+                                        userMap.put(FirebaseID.email, mEmailView.getText().toString());
+                                        userMap.put(FirebaseID.password, mPasswordView.getText().toString());
+                                        userMap.put(FirebaseID.nickname, mNicknameView.getText().toString());
+                                        userMap.put(FirebaseID.ID, mIDView.getText().toString());
+                                        mStore.collection(FirebaseID.user).document(user.getUid()).set(userMap, SetOptions.merge());
+                                        Toast.makeText(RegisterActivity.this, R.string.success_signup, Toast.LENGTH_SHORT).show();
+
+                                        if(mAuth.getCurrentUser() != null) {
+                                            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                            intent.putExtra("login", true);
+                                            intent.putExtra("userNickname",mNicknameView.getText().toString());
+                                            startActivity(intent);
+                                            finish();
+                                        }
+
+                                    }
+                                } else {
+                                    Toast.makeText(RegisterActivity.this, R.string.failed_signup, Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+
+                                // ...
+                            }
+                        });
+
             }
+
+
         });
     }
 
@@ -90,82 +125,6 @@ public class RegisterActivity extends AppCompatActivity {
         finish();
     }
 
-    public void SignUp(View view){
-        email = mEmailView.getText().toString();
-        password = mPasswordView.getText().toString();
-
-        if(isValidEmail() && isValidPW()){
-            createUser(email, password);
-        }
-    }
-
-    public void SignIn(View view){
-        email = mEmailView.getText().toString();
-        password = mPasswordView.getText().toString();
-
-        if(isValidEmail() && isValidPW()){
-            loginUser(email, password);
-        }
-    }
-
-    private boolean isValidEmail(){
-        if(email.isEmpty()){
-            // 이메일이 공백일경우
-            return false;
-        }
-        else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            // 이메일 형식이 아닌경우
-            return false;
-        }
-        else{
-            // 멀쩡하면 트루 리턴
-            return true;
-        }
-    }
-
-    private boolean isValidPW(){
-        if(password.isEmpty()){
-            // 비밀번호 공백일 경우
-            return false;
-        }
-        else if(!PASSWORD_PATTERN.matcher(password).matches()){
-            // 비밀번호 형식 불일치
-            return false;
-        }
-        else{
-            return true;
-        }
-    }
-
-    private void createUser(String email, String password){
-        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    //회원가입 성공할 경우
-                    Toast.makeText(RegisterActivity.this, R.string.success_signup, Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(RegisterActivity.this, R.string.failed_signup, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
-    private void loginUser(String email, String password){
-        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    // 로그인 성공
-                    Toast.makeText(RegisterActivity.this, R.string.success_login, Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(RegisterActivity.this, R.string.failed_login, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
 
 }
 
