@@ -28,14 +28,14 @@
             app:srcCompat="@drawable/small_logo" />
 
         <EditText
-        android:id="@+id/ID"
+        android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
 
-        android:hint="@string/prompt_ID"
+        android:hint="Email"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"

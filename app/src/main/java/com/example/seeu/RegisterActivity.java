@@ -19,9 +19,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import com.example.seeu.ui.login.LoginActivity;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
@@ -37,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText mNicknameView;
     private EditText mIDView;
     private EditText mPasswordView;
+    private EditText mCheckPasswordView;
     private EditText mEmailView;
 
     private String email="";
@@ -48,8 +53,9 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         mNicknameView = (EditText)findViewById(R.id.Nickname);
-        mEmailView = findViewById(R.id.Email);
+        mEmailView = findViewById(R.id.EMAIL);
         mPasswordView = findViewById(R.id.PW);
+        mCheckPasswordView = findViewById(R.id.PW2);
         mIDView = findViewById(R.id.ID);
 
 
@@ -68,15 +74,52 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         mJoinButton = (Button)findViewById(R.id.SignUp);
-        mJoinButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
+        mJoinButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(mEmailView.getText().toString().isEmpty()){
+                    Toast.makeText(RegisterActivity.this, "email을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(mNicknameView.getText().toString().isEmpty()){
+                    Toast.makeText(RegisterActivity.this, "nickname을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(mPasswordView.getText().toString().isEmpty()){
+                    Toast.makeText(RegisterActivity.this, "password를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(mCheckPasswordView.getText().toString().isEmpty()){
+                    Toast.makeText(RegisterActivity.this, "password 확인을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(mIDView.getText().toString().isEmpty()){
+                    Toast.makeText(RegisterActivity.this, "ID를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(!mPasswordView.getText().toString().equals(mCheckPasswordView.getText().toString())){
+                    Toast.makeText(RegisterActivity.this, "password가 다릅니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 mAuth.createUserWithEmailAndPassword(mEmailView.getText().toString(), mPasswordView.getText().toString())
                         .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
+                                if (!task.isSuccessful()) { // 회원가입 형식에 맞지 않을 경우, 경고문 출력
+                                    try {
+                                        throw task.getException();
+                                    } catch (FirebaseAuthInvalidCredentialsException e) {
+                                        Toast.makeText(RegisterActivity.this, "email 형식에 맞지 않습니다.", Toast.LENGTH_SHORT).show();
+                                    } catch (FirebaseAuthUserCollisionException e) {
+                                        Toast.makeText(RegisterActivity.this, "이미 존재하는 email 입니다.", Toast.LENGTH_SHORT).show();
+                                    } catch (Exception e) {
+                                        Toast.makeText(RegisterActivity.this, "다시 확인해주세요.", Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    // 형식에 맞다면, 새로운 계정 생성
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    if(user != null) {
+                                    if (user != null) {
+
                                         HashMap<Object, String> userMap = new HashMap<>();
                                         //키값
                                         userMap.put(FirebaseID.documentId, user.getUid());
@@ -87,29 +130,25 @@ public class RegisterActivity extends AppCompatActivity {
                                         mStore.collection(FirebaseID.user).document(user.getUid()).set(userMap, SetOptions.merge());
                                         Toast.makeText(RegisterActivity.this, R.string.success_signup, Toast.LENGTH_SHORT).show();
 
-                                        if(mAuth.getCurrentUser() != null) {
+                                        if (mAuth.getCurrentUser() != null) {
                                             Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                                             intent.putExtra("login", true);
-                                            intent.putExtra("userNickname",mNicknameView.getText().toString());
+                                            intent.putExtra("userNickname", mNicknameView.getText().toString());
                                             startActivity(intent);
                                             finish();
                                         }
-
                                     }
-                                } else {
-                                    Toast.makeText(RegisterActivity.this, R.string.failed_signup, Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
 
-                                // ...
+                                    // ...
+                                }
                             }
                         });
-
             }
-
-
         });
+
     }
+
+
 
     private void Login_page(View v) {
         Intent intent = new Intent(this, LoginActivity.class);
@@ -124,6 +163,9 @@ public class RegisterActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+
+
 
 
 }

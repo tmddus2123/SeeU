@@ -3,6 +3,7 @@ package com.example.seeu.ui.login;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,20 +21,17 @@ import com.example.seeu.MainActivity;
 import com.example.seeu.R;
 import com.example.seeu.RegisterActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends Activity {
 
     private ImageView logoView;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    private FirebaseFirestore mStore = FirebaseFirestore.getInstance();
-    private EditText mNicknameView;
     private EditText mEmailView;
-    private EditText mIDView;
     private EditText mPasswordView;
 
     @Override
@@ -41,11 +39,9 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // 로그인 폼 생성
 
-        mIDView = (EditText) findViewById(R.id.ID);
-        mNicknameView = (EditText) findViewById(R.id.Nickname);
-        mEmailView = findViewById(R.id.ID);
+        // 로그인 폼 생성
+        mEmailView = findViewById(R.id.email);
         mPasswordView = findViewById(R.id.password);
 
         logoView = (ImageView) findViewById(R.id.imageView);
@@ -74,6 +70,15 @@ public class LoginActivity extends Activity {
         mLoginButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(mEmailView.getText().toString().isEmpty()){
+                    Toast.makeText(LoginActivity.this, "email을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(mPasswordView.getText().toString().isEmpty()){
+                    Toast.makeText(LoginActivity.this, "password를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 mAuth.signInWithEmailAndPassword(mEmailView.getText().toString(), mPasswordView.getText().toString())
                         .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
