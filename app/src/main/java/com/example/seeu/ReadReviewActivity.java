@@ -11,36 +11,43 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.seeu.R;
-import com.example.seeu.ReadReview.ListVO;
-import com.example.seeu.ReadReview.ListViewAdapter;
 
+import com.example.seeu.ReadReview.PostAdapter;
+import com.example.seeu.ReadReview.Posting;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
+
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ReadReviewActivity extends AppCompatActivity {
 
     //받아야 하는 것 사진, 이름, 후기글
 
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private EditText area;
+    private String Num;
 
-    private ListView listview;
-    private ListViewAdapter adapter;
-    private int[] pic={R.drawable.logo,R.drawable.small_logo,R.drawable.logo};
-    private String[] review={"좋아요","안좋아요","개별로"};
-    private String[] name={"이","승","연"};
+    // private ListViewAdapter adapter;
 
-    ArrayList<ListVO> reviewDataList;
+    ArrayList<Posting> reviewDataList;
+
+    private static final String TAG = "DocSnippets";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,18 +58,50 @@ public class ReadReviewActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.hide();
 
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        this.InitializeReviewData();
 
-        adapter=new ListViewAdapter();
-        listview=(ListView)findViewById(R.id.listview3);
+        area = (EditText) findViewById(R.id.areaNum);    //DB 어떤 구역 선택했눈지 받아오기
 
-        listview.setAdapter(adapter);
+        Num = "7 구역";
+        area.setText(Num.toString());
 
-        for(int i=0;i<pic.length;i++){
-            adapter.addVO(ContextCompat.getDrawable(this,pic[i]),review[i],name[i]);
+        ListView listView = (ListView) findViewById(R.id.listview3);
+        final PostAdapter postAdapter = new PostAdapter(this, reviewDataList);
+        listView.setAdapter(postAdapter);
 
-        }
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView parent, View v, int position, long id) {
+                Toast.makeText(getApplicationContext(), postAdapter.getItem(position).getUserID(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        //데이터 읽기 Posting컬렉션 에서 내가 누른 seatID와 seatID가 동일한 것들만 출력
+        db.collection("Posting")
+                .whereEqualTo("SeatID", "7구역")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
 
     }
+    public void InitializeReviewData() {
+        reviewDataList=new ArrayList<Posting>();
+
+        reviewDataList.add(new Posting("Asdf",R.drawable.logo,"review",3));//DB에서 값 받아오기(임시)
+    }
+
 }
+
 
 
