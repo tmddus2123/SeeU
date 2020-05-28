@@ -6,5 +6,4 @@ public class FirebaseID {
     public static String email = "UserEmail";
     public static String password = "UserPassword";
     public static String nickname = "UserNickname";
-    public static String ID = "UserID";
 }

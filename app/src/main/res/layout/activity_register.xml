@@ -41,17 +41,6 @@
             android:layout_marginEnd="24dp"
             android:layout_marginTop="16dp"/>
 
-        <EditText
-            android:id="@+id/ID"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="ID"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="24dp" />
-
 
         <EditText
             android:id="@+id/EMAIL"

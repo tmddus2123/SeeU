@@ -39,7 +39,6 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore mStore = FirebaseFirestore.getInstance();
     private EditText mNicknameView;
-    private EditText mIDView;
     private EditText mPasswordView;
     private EditText mCheckPasswordView;
     private EditText mEmailView;
@@ -56,7 +55,6 @@ public class RegisterActivity extends AppCompatActivity {
         mEmailView = findViewById(R.id.EMAIL);
         mPasswordView = findViewById(R.id.PW);
         mCheckPasswordView = findViewById(R.id.PW2);
-        mIDView = findViewById(R.id.ID);
 
 
         /*Action Bar(Title bar) 받아와서 없애기*/
@@ -92,10 +90,6 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "password 확인을 입력해주세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(mIDView.getText().toString().isEmpty()){
-                    Toast.makeText(RegisterActivity.this, "ID를 입력해주세요.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 if(!mPasswordView.getText().toString().equals(mCheckPasswordView.getText().toString())){
                     Toast.makeText(RegisterActivity.this, "password가 다릅니다.", Toast.LENGTH_SHORT).show();
                     return;
@@ -126,14 +120,16 @@ public class RegisterActivity extends AppCompatActivity {
                                         userMap.put(FirebaseID.email, mEmailView.getText().toString());
                                         userMap.put(FirebaseID.password, mPasswordView.getText().toString());
                                         userMap.put(FirebaseID.nickname, mNicknameView.getText().toString());
-                                        userMap.put(FirebaseID.ID, mIDView.getText().toString());
                                         mStore.collection(FirebaseID.user).document(user.getUid()).set(userMap, SetOptions.merge());
                                         Toast.makeText(RegisterActivity.this, R.string.success_signup, Toast.LENGTH_SHORT).show();
 
                                         if (mAuth.getCurrentUser() != null) {
                                             Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                            /*
                                             intent.putExtra("login", true);
                                             intent.putExtra("userNickname", mNicknameView.getText().toString());
+
+                                             */
                                             startActivity(intent);
                                             finish();
                                         }
