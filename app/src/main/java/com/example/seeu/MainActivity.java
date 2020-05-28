@@ -24,17 +24,37 @@ import com.example.seeu.MyReview.MyListAdapter;
 import com.example.seeu.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.auth.FirebaseUser;
 
+import java.io.*;
 import java.util.ArrayList;
+import java.util.NavigableMap;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
 
     // firestore instance
     FirebaseFirestore db;
+    // 이메일 비밀번호 등 로그인 모듈
+    private FirebaseAuth mAuth;
+    // 현재 로그인 된 유저 정보
+    private FirebaseUser mUser;
+    private DatabaseReference mDatabase;
+    private DocumentReference docRef;
 
     // ListView handle
     ListView listView;
@@ -47,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
     TextView NameTV;
     Boolean login;
     String userNickname;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,12 +89,20 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(arrayAdapter);
         arrayList.clear();
 
+
         //init firestore
         db = FirebaseFirestore.getInstance();
 
+        mAuth = FirebaseAuth.getInstance();
+        // 현재 로그인한 사용자 정보 받아옴
+        mUser = mAuth.getCurrentUser();
+
         Intent getintent = getIntent();
+        /*
         login = getintent.getExtras().getBoolean("login");
         userNickname = getintent.getExtras().getString("userNickname");
+
+         */
 
         myRBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,10 +191,46 @@ public class MainActivity extends AppCompatActivity {
 
         /* 로그인 했으면 로그인 하기 버튼(loginBtn)삭제,
            비회원이면 로그아웃(logoutBtn), 내가 쓴 글 보기(myRBtn) 삭제 */
+        /*
         if (login) {
             loginBtn.setVisibility(View.GONE);
             NameTV.setText(userNickname);
         } else {
+            logoutBtn.setVisibility(View.GONE);
+            myRBtn.setVisibility(View.GONE);
+            NameTV.setText("비회원");
+        }
+
+         */
+
+        if(mUser != null){
+            // 로그인 되어 있다면 documentid로 문서 가져오기
+            docRef = db.collection(FirebaseID.user).document(mUser.getUid());
+            loginBtn.setVisibility(View.GONE);
+            // 가져온 문서에서 닉네임 받아와서 출력
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if(task.isSuccessful()){
+                        DocumentSnapshot document = task.getResult();
+                        if(document.exists()){
+                            String nickname = document.getData().get("UserNickname").toString();
+                            NameTV.setText(nickname);
+                            //Log.d(TAG, "DocumentSnapshot data : " + document.getData().get("UserNickname"));
+                        }
+                        else{
+                            Log.d(TAG, "No such documnet");
+                        }
+                    }
+                    else{
+                        Log.d(TAG, "get failed with", task.getException());
+                    }
+                }
+            });
+
+        }
+        else{
+            // 로그인 안되있음 비회원으로 출력
             logoutBtn.setVisibility(View.GONE);
             myRBtn.setVisibility(View.GONE);
             NameTV.setText("비회원");
@@ -200,4 +265,6 @@ public class MainActivity extends AppCompatActivity {
             toast.cancel();
         }
     }
+
+
 }

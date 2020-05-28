@@ -3,6 +3,7 @@ package com.example.seeu.ui.login;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,20 +21,21 @@ import com.example.seeu.MainActivity;
 import com.example.seeu.R;
 import com.example.seeu.RegisterActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends Activity {
 
     private ImageView logoView;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    private FirebaseFirestore mStore = FirebaseFirestore.getInstance();
-    private EditText mNicknameView;
     private EditText mEmailView;
-    private EditText mIDView;
     private EditText mPasswordView;
 
     @Override
@@ -41,11 +43,9 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // 로그인 폼 생성
 
-        mIDView = (EditText) findViewById(R.id.ID);
-        mNicknameView = (EditText) findViewById(R.id.Nickname);
-        mEmailView = findViewById(R.id.ID);
+        // 로그인 폼 생성
+        mEmailView = findViewById(R.id.email);
         mPasswordView = findViewById(R.id.password);
 
         logoView = (ImageView) findViewById(R.id.imageView);
@@ -74,23 +74,45 @@ public class LoginActivity extends Activity {
         mLoginButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                // 빈 폼 있는지 확인
+                if(mEmailView.getText().toString().isEmpty()){
+                    Toast.makeText(LoginActivity.this, "email을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(mPasswordView.getText().toString().isEmpty()){
+                    Toast.makeText(LoginActivity.this, "password를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 mAuth.signInWithEmailAndPassword(mEmailView.getText().toString(), mPasswordView.getText().toString())
                         .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
+                                if (!task.isSuccessful()) { // 로그인 형식 체크
+                                    try {
+                                        throw task.getException();
+                                    } catch (FirebaseAuthInvalidUserException e) {
+                                        Toast.makeText(LoginActivity.this, "존재하지 않는 email 입니다.", Toast.LENGTH_SHORT).show();
+                                    } catch (FirebaseAuthInvalidCredentialsException e) {
+                                        Toast.makeText(LoginActivity.this, "email 형식이 맞지 않습니다.", Toast.LENGTH_SHORT).show();
+                                    } catch (FirebaseNetworkException e) {
+                                        Toast.makeText(LoginActivity.this, "firebase와의 네트워크 연결을 확인해주세요.", Toast.LENGTH_SHORT).show();
+                                    }catch (Exception e) {
+                                        Toast.makeText(LoginActivity.this, "다시 확인해주세요.", Toast.LENGTH_SHORT).show();
+                                    }
+                                } else { // 예외 없다면 로그인성공
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     if (user != null) {
                                         Toast.makeText(LoginActivity.this, "로그인 성공!" , Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                        /*
                                         intent.putExtra("login", true);
                                         intent.putExtra("userNickname","SeeU"); //디비에서 로그인한 아이디의 짝인 닉네임불러오기
+
+                                         */
                                         startActivity(intent);
                                         finish();
                                     }
-                                } else {
-                                    Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
