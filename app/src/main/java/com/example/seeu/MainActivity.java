@@ -146,12 +146,15 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String concert = searchStr.getText().toString();
                 // main의 값들을 초기화 (액티비티를 종료하지 않기 때문)
                 arrayList.clear();
                 listView.invalidateViews();
                 searchStr.setText("");
 
                 Intent intent = new Intent(getBaseContext(), ConcertActivity.class);
+                /* 공연장 이름을 콘서트 액티비티에 넘겨준다. */
+                intent.putExtra("concert", concert);
                 startActivity(intent);
             }
         });
