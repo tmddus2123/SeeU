@@ -47,12 +47,14 @@ public class ConcertActivity extends AppCompatActivity {
             btnArray[i] = (Button)findViewById(btnID[i]);
         }
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Intent getintent = getIntent();
+        String concert = getintent.getStringExtra("concert"); // 메인에서 선택한 공연장 이름
 
         //Posting 컬렉션안에 SeatID가 "a구역"인 데이터를 찾아서 갯수를 count 배열에 넣고, 버튼색을 변경한다.
-        for(int a=1;a<17;a++){
-            final int b = a;
-            db.collection("Posting")
-                    .whereEqualTo("SeatID", a + "구역")
+        for(Integer a=1;a<17;a++){
+            final Integer b = a;
+            db.collection("Concert List").document(concert)
+                    .collection(a.toString())
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
