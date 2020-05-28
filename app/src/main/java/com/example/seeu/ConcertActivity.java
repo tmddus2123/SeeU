@@ -53,8 +53,9 @@ public class ConcertActivity extends AppCompatActivity {
         //Posting 컬렉션안에 SeatID가 "a구역"인 데이터를 찾아서 갯수를 count 배열에 넣고, 버튼색을 변경한다.
         for(Integer a=1;a<17;a++){
             final Integer b = a;
-            db.collection("Concert List").document(concert)
-                    .collection(a.toString())
+            db.collection("Posting")
+                    .whereEqualTo("Name", concert)
+                    .whereEqualTo("Seat",a.toString())
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
