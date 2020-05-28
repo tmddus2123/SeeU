@@ -63,3 +63,8 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     //implementation 'com.google.firebase:firebase-firestore:17.1.2'
 }
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:+'
+    implementation 'androidx.constraintlayout:constraintlayout:+'
+}

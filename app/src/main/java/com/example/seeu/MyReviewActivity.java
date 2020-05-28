@@ -4,9 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.seeu.MyReview.ListViewItem;
@@ -26,7 +29,6 @@ public class MyReviewActivity extends AppCompatActivity {
     ListView myRList;
     ArrayList<ListViewItem> arrayList = new ArrayList<ListViewItem>();
     MyListAdapter arrayAdapter;
-
     FirebaseFirestore db;
 
     @Override
@@ -45,17 +47,17 @@ public class MyReviewActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         db.collection("Posting")
-                .whereEqualTo("UserID", "lHntXjWawWvDAfc1hRpU")
+                .whereEqualTo("UserID", "YLLKXrlMEKUkuIEkDz2P10645eR2")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
                             for (QueryDocumentSnapshot document : task.getResult()) {
-
-                                String str=document.get("text").toString().trim();
-                                //arrayAdapter.addItem(str,str,str);
-                                arrayAdapter.addItem("울산 현대예술관 소공연장","A","짱 불편함 ;;");
+                                String concertName = document.getString("Name");
+                                String concertSeat = document.getString("Seat") + " 구역";
+                                String concertText = document.getString("text");
+                                arrayAdapter.addItem(concertName,concertSeat,concertText);
                                 myRList.invalidateViews();
                                 Log.d("FireStore READ", document.getId() + " => " + document.getData());
                             }
@@ -68,8 +70,5 @@ public class MyReviewActivity extends AppCompatActivity {
 
                     }
                 });
-        /*
-        * DB에서 현재 Login한 유저의 글 정보를 불러와서 List 항목 만들기
-        * */
     }
 }
