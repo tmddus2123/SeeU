@@ -88,31 +88,3 @@ public class ConcertInfoActivity extends AppCompatActivity {
     }
 }
 
-
-        /*
-        * Concert_chair xml에 이거 추가.....
-        <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="공연장 보기" />
-
-         */
-
-        /*
-        * Concert Activity에 이거 추가........
-        onCreate 밖에
-        Button button; 이거 추가
-        onCreate 안에
-        button = (Button) findViewById(R.id.button1); 이거랑
-        *
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), ConcertInfoActivity.class);
-                intent.putExtra("concertName", "울산 현대예술관 소공연장");
-                startActivity(intent);
-            }
-        });
-        이거 두개 추가..!
-         */

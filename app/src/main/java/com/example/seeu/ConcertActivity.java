@@ -34,10 +34,12 @@ public class ConcertActivity extends AppCompatActivity {
 
     Button[] btnArray = null;
     int[] count = { 0 };
+    Button Concert;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_concert_chair);
+        Concert = (Button)findViewById(R.id.concert);
         btnArray = new Button[16];
         count = new int[16];
         int[] btnID = { R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5, R.id.btn6, R.id.btn7, R.id.btn8, R.id.btn9, R.id.btn10,
@@ -104,6 +106,15 @@ public class ConcertActivity extends AppCompatActivity {
 
             });
         }
+
+        Concert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), ConcertInfoActivity.class);
+                intent.putExtra("concertName", "울산 현대예술관 소공연장");
+                startActivity(intent);
+            }
+        });
 
         /*Action Bar(Title bar) 받아와서 없애기*/
         ActionBar ab = getSupportActionBar();
