@@ -50,7 +50,7 @@ public class ConcertActivity extends AppCompatActivity {
         }
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
         Intent getintent = getIntent();
-        String concert = getintent.getStringExtra("concert"); // 메인에서 선택한 공연장 이름
+        final String concert = getintent.getStringExtra("concert"); // 메인에서 선택한 공연장 이름
 
         //Posting 컬렉션안에 SeatID가 "a구역"인 데이터를 찾아서 갯수를 count 배열에 넣고, 버튼색을 변경한다.
         for(Integer a=1;a<17;a++){
@@ -88,6 +88,8 @@ public class ConcertActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Intent intent = new Intent(getBaseContext(), ReadReviewActivity.class);
+                            intent.putExtra("concertName", concert);
+                            intent.putExtra("concertSeat", (j+1) + "구역");
                             startActivity(intent);
                         }
                     })
@@ -96,6 +98,8 @@ public class ConcertActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int which) {
                                     //후기 작성 페이지로 넘어가기
                                     Intent intent = new Intent(getBaseContext(), WriteReviewActivity.class);
+                                    intent.putExtra("concertName", concert);
+                                    intent.putExtra("concertSeat", (j+1) + "구역");
                                     startActivity(intent);
                                 }
                             })
@@ -111,7 +115,7 @@ public class ConcertActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), ConcertInfoActivity.class);
-                intent.putExtra("concertName", "울산 현대예술관 소공연장");
+                intent.putExtra("concertName", concert);
                 startActivity(intent);
             }
         });

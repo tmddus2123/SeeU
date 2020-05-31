@@ -41,8 +41,7 @@ public class ReadReviewActivity extends AppCompatActivity {
     //받아야 하는 것 사진, 이름, 후기글
 
     private EditText area;
-    private String Num;
-
+    private String Name, Num;
     // private ListViewAdapter adapter;
 
     ArrayList<Posting> reviewDataList;
@@ -58,12 +57,14 @@ public class ReadReviewActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.hide();
 
+        Bundle get = getIntent().getExtras();
+        Name = get.getString("concertName");
+        Num = get.getString("concertSeat");
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         this.InitializeReviewData();
 
         area = (EditText) findViewById(R.id.areaNum);    //DB 어떤 구역 선택했눈지 받아오기
-
-        Num = "7 구역";
         area.setText(Num.toString());
 
         ListView listView = (ListView) findViewById(R.id.listview3);
@@ -79,7 +80,8 @@ public class ReadReviewActivity extends AppCompatActivity {
 
         //데이터 읽기 Posting컬렉션 에서 내가 누른 seatID와 seatID가 동일한 것들만 출력
         db.collection("Posting")
-                .whereEqualTo("SeatID", "7구역")
+                .whereEqualTo("Name", Name)
+                .whereEqualTo("Seat", Num)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
