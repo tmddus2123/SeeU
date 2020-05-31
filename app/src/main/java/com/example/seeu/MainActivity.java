@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -132,17 +133,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 /* 로그아웃 버튼을 누르면 로그아웃 후 로그인 액티비티로 이동 */
-
-                /* 로그아웃 하는 코드 추가! */
+                mAuth.getInstance().signOut();
                 Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                intent.putExtra("login", false);
                 startActivity(intent);
                 finish();
             }
         });
 
-        searchBtn.setOnClickListener(new View.OnClickListener() {
-            /* 검색버튼 누르면 (EditText의 검색어로 )검색 */
+
+       searchBtn.setOnClickListener(new View.OnClickListener() {
+            // 검색버튼 누르면 (EditText의 검색어로 )검색
             @Override
             public void onClick(View view) {
                 db.collection("Concert List")
@@ -168,8 +168,14 @@ public class MainActivity extends AppCompatActivity {
 
                             }
                         });
-            }
+
+
+                }
         });
+
+
+
+
 
         // 검색된 리스트 클릭하면 ConcertActivity로 이동
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -189,20 +195,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        /* 로그인 했으면 로그인 하기 버튼(loginBtn)삭제,
-           비회원이면 로그아웃(logoutBtn), 내가 쓴 글 보기(myRBtn) 삭제 */
-        /*
-        if (login) {
-            loginBtn.setVisibility(View.GONE);
-            NameTV.setText(userNickname);
-        } else {
-            logoutBtn.setVisibility(View.GONE);
-            myRBtn.setVisibility(View.GONE);
-            NameTV.setText("비회원");
-        }
-
-         */
-
         if(mUser != null){
             // 로그인 되어 있다면 documentid로 문서 가져오기
             docRef = db.collection(FirebaseID.user).document(mUser.getUid());
@@ -219,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
                             //Log.d(TAG, "DocumentSnapshot data : " + document.getData().get("UserNickname"));
                         }
                         else{
-                            Log.d(TAG, "No such documnet");
+                            Log.d(TAG, "No such document");
                         }
                     }
                     else{
@@ -258,13 +250,13 @@ public class MainActivity extends AppCompatActivity {
         // 마지막으로 뒤로가기 버튼을 눌렀던 시간이 2초가 지나지 않았으면 종료
         // 현재 표시된 Toast 취소
         if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
-            //finish();
+            //FirebaseAuth.getInstance().signOut();
+            //아니 왜 안돼냐고
             ActivityCompat.finishAffinity(this);
             System.runFinalization();
             System.exit(0);
             toast.cancel();
         }
     }
-
 
 }
