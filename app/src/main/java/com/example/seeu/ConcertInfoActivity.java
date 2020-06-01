@@ -25,9 +25,9 @@ import org.w3c.dom.Text;
 
 public class ConcertInfoActivity extends AppCompatActivity {
     FirebaseFirestore db;
-    Button weblink;
+    Button weblink, maplink;
     TextView concertName, concertLoc, concertCall, concertCnt, concertWEB;
-    String Loc, Call, WEB;
+    String Loc, Call, WEB, Latitude, Longitude, Name;
     Integer Cnt;
 
 
@@ -44,6 +44,7 @@ public class ConcertInfoActivity extends AppCompatActivity {
 
 
         weblink = (Button) findViewById(R.id.webBtn);
+        maplink = (Button) findViewById(R.id.MapBtn);
         concertName = (TextView) findViewById(R.id.concertName);
         concertLoc = (TextView) findViewById(R.id.concertLoc);
         concertCall = (TextView) findViewById(R.id.concertCall);
@@ -51,7 +52,7 @@ public class ConcertInfoActivity extends AppCompatActivity {
         concertWEB = (TextView) findViewById(R.id.concertWEB);
 
         Intent get = getIntent();
-        String Name = get.getStringExtra("concertName");
+        Name = get.getStringExtra("concertName");
         concertName.setText(Name);
 
         DocumentReference docRef = db.collection("Concert List").document(Name);
@@ -62,11 +63,16 @@ public class ConcertInfoActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         Loc = (String) document.getString("Loc");
+                        /*String cName = document.getData().get("Name").toString();
+                        concertName.setText(cName);
+                         */
                         concertLoc.setText(document.getString("Loc"));
                         concertCall.setText(document.getString("Call"));
                         concertCnt.setText(String.valueOf(document.get("Cnt")));
                         concertWEB.setText(document.getString("WEB"));
                         WEB=document.getString("WEB");
+                        Latitude=document.getString("Latitude");
+                        Longitude=document.getString("Longitude");
                         Log.d("TAG", "DocumentSnapshot data: " + document.getData());
                     } else {
                         Log.d("TAG", "No such document");
@@ -83,6 +89,18 @@ public class ConcertInfoActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(WEB));
                 startActivity(intent);
+            }
+        });
+
+        maplink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String geo="geo:"+Latitude+", "+Longitude+"?z=10&q="+Name;
+                Uri uri=Uri.parse(geo);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                intent.setPackage("com.google.android.apps.maps");
+                startActivity(intent);
+
             }
         });
     }

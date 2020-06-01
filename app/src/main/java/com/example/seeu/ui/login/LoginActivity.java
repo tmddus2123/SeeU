@@ -124,7 +124,7 @@ public class LoginActivity extends Activity {
             public void onClick(View v) {
                 /* 비회원 버튼 누르면 메인 액티비티로 */
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.putExtra("login", false);
+                //intent.putExtra("login", false);
                 startActivity(intent);
                 finish();
             }
