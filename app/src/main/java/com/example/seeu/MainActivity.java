@@ -99,11 +99,6 @@ public class MainActivity extends AppCompatActivity {
         mUser = mAuth.getCurrentUser();
 
         Intent getintent = getIntent();
-        /*
-        login = getintent.getExtras().getBoolean("login");
-        userNickname = getintent.getExtras().getString("userNickname");
-
-         */
 
         myRBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,21 +138,32 @@ public class MainActivity extends AppCompatActivity {
 
        searchBtn.setOnClickListener(new View.OnClickListener() {
             // 검색버튼 누르면 (EditText의 검색어로 )검색
+
             @Override
             public void onClick(View view) {
                 db.collection("Concert List")
-                        .whereEqualTo("Name", searchStr.getText().toString().trim())
+                        .whereGreaterThanOrEqualTo("Name", searchStr.getText().toString().trim())
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if(task.isSuccessful()){
-                                    arrayList.clear();
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        String str=document.getId().toString();
-                                        arrayList.add(str);
-                                        listView.invalidateViews();
-                                        Log.d("FireStore READ", document.getId() + " => " + document.getData());
+                                    if(searchStr.getText().toString() == null){
+                                        arrayList.clear();
+                                        for(QueryDocumentSnapshot ds : task.getResult()){
+                                            String str = ds.getId().toString();
+                                            arrayList.add(str);
+                                            listView.invalidateViews();
+                                        }
+                                    }
+                                    else {
+                                        arrayList.clear();
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            String str = document.getId().toString();
+                                            arrayList.add(str);
+                                            listView.invalidateViews();
+                                            Log.d("FireStore READ", document.getId() + " => " + document.getData());
+                                        }
                                     }
                                 }
                             }

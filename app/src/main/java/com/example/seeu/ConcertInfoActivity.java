@@ -27,7 +27,7 @@ public class ConcertInfoActivity extends AppCompatActivity {
     FirebaseFirestore db;
     Button weblink, maplink;
     TextView concertName, concertLoc, concertCall, concertCnt, concertWEB;
-    String Loc, Call, WEB, Latitude, Longitude;
+    String Loc, Call, WEB, Latitude, Longitude, Name;
     Integer Cnt;
 
 
@@ -52,7 +52,7 @@ public class ConcertInfoActivity extends AppCompatActivity {
         concertWEB = (TextView) findViewById(R.id.concertWEB);
 
         Intent get = getIntent();
-        String Name = get.getStringExtra("concertName");
+        Name = get.getStringExtra("concertName");
         concertName.setText(Name);
 
         DocumentReference docRef = db.collection("Concert List").document(Name);
@@ -95,7 +95,7 @@ public class ConcertInfoActivity extends AppCompatActivity {
         maplink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String geo="geo:"+Latitude+", "+Longitude;
+                String geo="geo:"+Latitude+", "+Longitude+"?z=10&q="+Name;
                 Uri uri=Uri.parse(geo);
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 intent.setPackage("com.google.android.apps.maps");
