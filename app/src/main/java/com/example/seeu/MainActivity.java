@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     // 현재 로그인 된 유저 정보
     private FirebaseUser mUser;
-    private DatabaseReference mDatabase;
     private DocumentReference docRef;
 
     // ListView handle
@@ -90,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(arrayAdapter);
         arrayList.clear();
 
-
         //init firestore
         db = FirebaseFirestore.getInstance();
 
@@ -106,6 +104,22 @@ public class MainActivity extends AppCompatActivity {
                 /* 내가 쓴 글 버튼을 누르면 내가 쓴 후기 액티비티로 이동 */
                 // main의 값들을 초기화 (액티비티를 종료하지 않기 때문)
                 arrayList.clear();
+                db.collection("Concert List")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if(task.isSuccessful()){
+                                    arrayList.clear();
+                                    for(QueryDocumentSnapshot document : task.getResult()) {
+                                        String str = document.getId().toString();
+                                        arrayList.add(str);
+                                        listView.invalidateViews();
+                                        Log.d("FireStore READ", document.getId() + " => " + document.getData());
+                                    }
+                                }
+                            }
+                        });
                 listView.invalidateViews();
                 searchStr.setText("");
 
@@ -135,6 +149,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        db.collection("Concert List")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            arrayList.clear();
+                            for(QueryDocumentSnapshot document : task.getResult()) {
+                                String str = document.getId().toString();
+                                arrayList.add(str);
+                                listView.invalidateViews();
+                                Log.d("FireStore READ", document.getId() + " => " + document.getData());
+                            }
+                        }
+                    }
+                });
 
        searchBtn.setOnClickListener(new View.OnClickListener() {
             // 검색버튼 누르면 (EditText의 검색어로 )검색
@@ -142,28 +172,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 db.collection("Concert List")
-                        .whereGreaterThanOrEqualTo("Name", searchStr.getText().toString().trim())
+                        .whereEqualTo("Name", searchStr.getText().toString().trim())
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if(task.isSuccessful()){
-                                    if(searchStr.getText().toString() == null){
-                                        arrayList.clear();
-                                        for(QueryDocumentSnapshot ds : task.getResult()){
-                                            String str = ds.getId().toString();
-                                            arrayList.add(str);
-                                            listView.invalidateViews();
-                                        }
-                                    }
-                                    else {
-                                        arrayList.clear();
-                                        for (QueryDocumentSnapshot document : task.getResult()) {
-                                            String str = document.getId().toString();
-                                            arrayList.add(str);
-                                            listView.invalidateViews();
-                                            Log.d("FireStore READ", document.getId() + " => " + document.getData());
-                                        }
+                                    arrayList.clear();
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        String str = document.getId().toString();
+                                        arrayList.add(str);
+                                        listView.invalidateViews();
+                                        Log.d("FireStore READ", document.getId() + " => " + document.getData());
                                     }
                                 }
                             }
@@ -174,22 +194,33 @@ public class MainActivity extends AppCompatActivity {
 
                             }
                         });
-
-
                 }
         });
-
-
-
-
 
         // 검색된 리스트 클릭하면 ConcertActivity로 이동
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String concert = searchStr.getText().toString();
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                String concert = arrayList.get(position).toString();
+                Log.d("Concert Name Plz", concert);
                 // main의 값들을 초기화 (액티비티를 종료하지 않기 때문)
                 arrayList.clear();
+                db.collection("Concert List")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if(task.isSuccessful()){
+                                    arrayList.clear();
+                                    for(QueryDocumentSnapshot document : task.getResult()) {
+                                        String str = document.getId().toString();
+                                        arrayList.add(str);
+                                        listView.invalidateViews();
+                                        Log.d("FireStore READ", document.getId() + " => " + document.getData());
+                                    }
+                                }
+                            }
+                        });
                 listView.invalidateViews();
                 searchStr.setText("");
 
@@ -199,7 +230,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
         if(mUser != null){
             // 로그인 되어 있다면 documentid로 문서 가져오기
