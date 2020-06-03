@@ -2,39 +2,51 @@ package com.example.seeu.ReadReview;
 
 public class Posting {
 
-    //private String SeatID;
+    private String Name;
+    private String Seat;
     private String UserID;
-    private int Picture;
-    private String Text;
-    private float Ratingbar;
+    private String nickname;
+    private int pic;
+    private String text;
+    private float rating;
 
     public Posting() {}
 
-    public Posting(String UserID, int Picture, String Text, float Ratingbar) {
+    public Posting(String Name,String Seat, String UserID,String nickname, int pic, String text, float rating) {
+        this.Name=Name;
+        this.Seat=Seat;
         this.UserID=UserID;
-        this.Picture=Picture;
-        this.Text=Text;
-        this.Ratingbar=Ratingbar;
+        this.nickname=nickname;
+        this.pic=pic;
+        this.text=text;
+        this.rating=rating;
+    }
+    public String getName(){
+        return Name;
     }
 
-  /*public String getSeatID() {
-        return SeatID;
-    }*/
+    public String getSeat() {
+        return Seat;
+    }
 
     public  String getUserID() {
         return UserID;
     }
 
-    public int getPicture() {
-        return Picture;
+    public String getNickname() {
+        return nickname;
     }
 
-    public String getText() {
-        return Text;
+    public int getpic() {
+        return pic;
     }
 
-    public float getRatingbar() {
-        return Ratingbar;
+    public String gettext() {
+        return text;
+    }
+
+    public float getrating() {
+        return rating;
     }
 
 }
