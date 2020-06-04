@@ -24,19 +24,26 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="17dp"
             android:text="/ 후기보기"
             android:textColor="@color/main2"
             android:textSize="30sp"
             android:textStyle="bold" />
 
-        <EditText
+        <TextView
             android:id="@+id/areaNum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15sp"
+            android:layout_marginTop="17dp"
             android:layout_marginLeft="20sp"
-            android:textSize="30sp"            />
+            android:textSize="30sp" />
+
+        <!---<TextView
+            android:text="구역"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:textSize="30sp" />-->
 
     </LinearLayout> <!--로고 레이아웃-->
 
