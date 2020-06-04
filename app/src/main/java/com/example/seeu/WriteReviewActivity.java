@@ -10,11 +10,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.seeu.ReadReview.PostAdapter;
 import com.example.seeu.ReadReview.Posting;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,6 +25,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
 
 
 public class WriteReviewActivity extends AppCompatActivity {
@@ -49,6 +53,10 @@ public class WriteReviewActivity extends AppCompatActivity {
 
     TextView AreaTV;
     TextView ConcertTV;
+
+    ListView Postlist;
+    ArrayList<Posting> arrayList = new ArrayList<Posting>();
+    PostAdapter arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +93,8 @@ public class WriteReviewActivity extends AppCompatActivity {
         mAuth= FirebaseAuth.getInstance();
         mUser=mAuth.getCurrentUser();
 
+        arrayAdapter = new PostAdapter();
+
         Write.setOnClickListener(new View.OnClickListener() { //작성하기 버튼
             @Override
             public void onClick(View view) {
@@ -108,13 +118,15 @@ public class WriteReviewActivity extends AppCompatActivity {
                                 if (document.exists()) {
                                     nickname = document.getData().get("UserNickname").toString();
                                     userid = document.getData().get("documentID").toString();
+
+                                    Posting Post = new Posting(concertName,concertSeat,userid,nickname,R.drawable.logo, msg, rating);
+                                    db.collection("Posting").document().set(Post); //디비에 저장
+
                                     Log.d(TAG, "DocumentSnapshot data : " + document.getData().get("UserNickname"));
                                     Log.d(TAG, "DocumentSnapshot data : " + document.getData().get("documentID"));
                                 } else
                                     Log.d(TAG, "No such document");
                             }
-                            Posting Post = new Posting(concertName,concertSeat,userid,nickname,R.drawable.logo, msg, rating);
-                            db.collection("Posting").document().set(Post); //디비에 저장
                             //이미지만 넣으면,,,<!
                             Intent intent = new Intent(getBaseContext(), ReadReviewActivity.class);
                             intent.putExtra("concertName",concertName);

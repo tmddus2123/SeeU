@@ -5,22 +5,45 @@ public class Posting {
     private String Name;
     private String Seat;
     private String UserID;
-    private String nickname;
-    private int pic;
-    private String text;
-    private float rating;
+    private String Nickname;
+    private int Pic;
+    private String Text;
+    private float Rating;
 
     public Posting() {}
 
-    public Posting(String Name,String Seat, String UserID,String nickname, int pic, String text, float rating) {
+    public Posting(String Name, String Seat, String UserID, String nickname, int pic, String text, float rating){
         this.Name=Name;
         this.Seat=Seat;
         this.UserID=UserID;
-        this.nickname=nickname;
-        this.pic=pic;
-        this.text=text;
-        this.rating=rating;
+        this.Nickname=nickname;
+        this.Pic=pic;
+        this.Text=text;
+        this.Rating=rating;
     }
+
+    public void setName(String name){
+        Name=name;
+    }
+    public void setSeat(String seat){
+        Seat=seat;
+    }
+    public void setUserID(String userid){
+        UserID=userid;
+    }
+    public void setNickname(String Nick){
+        Nickname=Nick;
+    }
+    public void setPic(int pic){
+        Pic=pic;
+    }
+    public void setText(String text){
+        Text=text;
+    }
+    public void  setRating(float rating){
+        Rating=rating;
+    }
+
     public String getName(){
         return Name;
     }
@@ -34,19 +57,19 @@ public class Posting {
     }
 
     public String getNickname() {
-        return nickname;
+        return Nickname;
     }
 
     public int getpic() {
-        return pic;
+        return Pic;
     }
 
     public String gettext() {
-        return text;
+        return Text;
     }
 
     public float getrating() {
-        return rating;
+        return Rating;
     }
 
 }

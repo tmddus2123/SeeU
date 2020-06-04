@@ -36,6 +36,10 @@ public class ReadReviewActivity extends AppCompatActivity {
 
     FirebaseFirestore db;
 
+    ListView Postlist;
+    ArrayList<Posting> arrayList = new ArrayList<Posting>();
+    PostAdapter arrayAdapter;
+
     private TextView area;
     private String Name, Num, Nick, ID;
     //db에서 받아와야할것든 userid, nickname, review, rating, img,
@@ -53,8 +57,6 @@ public class ReadReviewActivity extends AppCompatActivity {
     private FirebaseUser mUser;
 
     private DocumentReference docRef;
-
-    ArrayList<Posting> reviewDataList;
 
     private static final String TAG = "DocSnippets";
 
@@ -74,7 +76,6 @@ public class ReadReviewActivity extends AppCompatActivity {
         Num = get.getString("concertSeat");
 
         db = FirebaseFirestore.getInstance();
-        this.InitializeReviewData();
 
         area = (TextView) findViewById(R.id.areaNum);    //DB 어떤 구역 선택했눈지 받아오기
         area.setText(Num.toString());
@@ -82,14 +83,11 @@ public class ReadReviewActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
 
+        NnameTV=(TextView)findViewById(R.id.Nickname);
 
-        //NnameTV=(TextView)findViewById(R.id.Nickname);
-        //NnameTV.setText(nickname.toString());
-
-
-        ListView listView = (ListView) findViewById(R.id.listview3);
-        final PostAdapter postAdapter = new PostAdapter(this, reviewDataList);
-        listView.setAdapter(postAdapter);
+        Postlist = (ListView) findViewById(R.id.listview3);
+        arrayAdapter = new PostAdapter();
+        Postlist.setAdapter(arrayAdapter);
 
         //데이터 읽기 Posting컬렉션 에서 내가 누른 seatID와 seatID가 동일한 것들만 출력
         db.collection("Posting")
@@ -101,13 +99,15 @@ public class ReadReviewActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-
-                                nickname = document.getString("nickname");
                                 userid = document.getString("userID");
+                                nickname = document.getString("nickname");
                                 review = document.getString("text");
                                 //rating = document.getDouble("star");
+
+
                                 //별점이랑 사진 유형,,,,,,,
-                                reviewDataList.add(new Posting(Name, Num, userid, nickname, R.drawable.logo, review, 3));
+                                arrayAdapter.addItem(Name, Num, userid, nickname, R.drawable.logo, review, 3);
+                                Postlist.invalidateViews();
 
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                             }
@@ -137,10 +137,5 @@ public class ReadReviewActivity extends AppCompatActivity {
         }
 
     }
-    public void InitializeReviewData() {
-        reviewDataList=new ArrayList<Posting>();
 
-        reviewDataList.add(new Posting(Name,Num,ID,nickname,R.drawable.logo,"아아아",3));//DB에서 값 받아오기(임시)
-    }
 }
-

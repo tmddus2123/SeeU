@@ -17,19 +17,12 @@ import com.example.seeu.R;
 
 import org.w3c.dom.Text;
 
+import java.lang.ref.Reference;
 import java.util.ArrayList;
 
 public class PostAdapter extends BaseAdapter {
 
-    Context mContext = null;
-    LayoutInflater mLayoutInflater = null;
-    ArrayList<Posting> Post;
-
-    public PostAdapter(Context context, ArrayList<Posting> post) {
-        mContext = context;
-        Post = post;
-        mLayoutInflater = LayoutInflater.from(mContext);
-    }
+    private ArrayList<Posting> Post=new ArrayList<Posting>();
 
     @Override
     public int getCount() {
@@ -47,25 +40,46 @@ public class PostAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View converView, ViewGroup parent) {
-        View view = mLayoutInflater.inflate(R.layout.custom_listview,null);
-        view.setOnTouchListener(new View.OnTouchListener() {
+    public View getView(int position, View convertView, ViewGroup parent) {
+       final int pos=position;
+       final Context context = parent.getContext();
+
+       if(convertView == null){
+           LayoutInflater inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+           convertView=inflater.inflate(R.layout.custom_listview,parent,false);
+       }
+
+        convertView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return true;//리스트뷰 터치 안되게
             }
         });
 
-        ImageView imageView=(ImageView)view.findViewById(R.id.picture);
-        TextView reView=(TextView)view.findViewById(R.id.review);
-        TextView UserId=(TextView)view.findViewById(R.id.UserName);
-        RatingBar rating=(RatingBar)view.findViewById(R.id.ratingBar);
+        ImageView image=(ImageView)convertView.findViewById(R.id.picture);
+        TextView review=(TextView)convertView.findViewById(R.id.review);
+        TextView UserID=(TextView)convertView.findViewById(R.id.UserName);
+        RatingBar rating=(RatingBar)convertView.findViewById(R.id.ratingBar);
 
-        imageView.setImageResource(Post.get(position).getpic());
-        reView.setText(Post.get(position).gettext());
-        UserId.setText(Post.get(position).getUserID());
+        image.setImageResource(Post.get(position).getpic());
+        review.setText(Post.get(position).gettext());
+        UserID.setText(Post.get(position).getUserID());
         rating.setRating(Post.get(position).getrating());
 
-        return view;
+        return convertView;
+    }
+
+    public void addItem(String Name,String Seat,String UserID,String Nickname, int image,String Review,float rating){
+        Posting post = new Posting();
+
+        post.setName(Name);
+        post.setSeat(Seat);
+        post.setNickname(Nickname);
+        post.setUserID(UserID);
+        post.setText(Review);
+        post.setPic(image);
+        post.setRating(rating);
+
+        Post.add(post);
     }
 }
