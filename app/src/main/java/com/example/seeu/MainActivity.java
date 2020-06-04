@@ -168,33 +168,38 @@ public class MainActivity extends AppCompatActivity {
 
        searchBtn.setOnClickListener(new View.OnClickListener() {
             // 검색버튼 누르면 (EditText의 검색어로 )검색
-
             @Override
             public void onClick(View view) {
-                db.collection("Concert List")
-                        .whereEqualTo("Name", searchStr.getText().toString().trim())
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if(task.isSuccessful()){
-                                    arrayList.clear();
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        String str = document.getId().toString();
-                                        arrayList.add(str);
-                                        listView.invalidateViews();
-                                        Log.d("FireStore READ", document.getId() + " => " + document.getData());
+
+                if (searchStr.getText().toString().equals("")) {
+                    arrayList.clear();
+                    listView.invalidateViews();
+                } else {
+                    db.collection("Concert List")
+                            .whereEqualTo("Name", searchStr.getText().toString().trim())
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        arrayList.clear();
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            String str = document.getId().toString();
+                                            arrayList.add(str);
+                                            listView.invalidateViews();
+                                            Log.d("FireStore READ", document.getId() + " => " + document.getData());
+                                        }
                                     }
                                 }
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
 
-                            }
-                        });
+                                }
+                            });
                 }
+            }
         });
 
         // 검색된 리스트 클릭하면 ConcertActivity로 이동
