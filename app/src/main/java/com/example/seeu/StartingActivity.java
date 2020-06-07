@@ -46,7 +46,8 @@ public class StartingActivity extends Activity {
                 public void run() {
                 /* LoginActivity를 새로운 intent로 불러와서 시작함.
                    현재 intent는 종료 */
-                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    //Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    Intent intent = new Intent(getBaseContext(), TutorialActivity.class);
                     startActivity(intent);
                     finish();
                 }
