@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/small_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TutorialActivity"></activity>
+        <activity android:name=".SubActivity"></activity>
+        <activity android:name=".TutorialActivity" />
         <activity android:name=".ConcertInfoActivity" />
         <activity android:name=".ReadReviewActivity" />
         <activity android:name=".WriteReviewActivity" />

@@ -67,7 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
 
          mCancelButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                Login_page(v);
+                Sub_page(v);
             }
         });
 
@@ -148,6 +148,12 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void Login_page(View v) {
         Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void Sub_page(View v) {
+        Intent intent = new Intent(this, SubActivity.class);
         startActivity(intent);
         finish();
     }

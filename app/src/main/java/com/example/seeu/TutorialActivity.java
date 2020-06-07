@@ -42,8 +42,8 @@ public class TutorialActivity extends AppCompatActivity {
         gobtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /* 버튼 누르면 로그인/회원가입 액티비티로 */
-                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                /* 버튼 누르면 서브 액티비티로 */
+                Intent intent = new Intent(getBaseContext(), SubActivity.class);
                 startActivity(intent);
                 finish();
             }
