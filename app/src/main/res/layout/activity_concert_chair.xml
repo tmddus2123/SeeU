@@ -33,20 +33,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="☆ 구역을 선택해주세요"
+                android:textColor="#000"
+                android:fontFamily="@font/goyangilsanl"
                 android:layout_marginLeft="30dp"/>
                 <Button
                     android:layout_width="100dp"
                     android:layout_height="58dp"
                     android:layout_marginLeft="137dp"
                     android:text="공연장 보기"
+                    android:fontFamily="@font/goyangilsanl"
                     android:id = "@+id/concert">
 
                 </Button>
             </LinearLayout>
             <ImageView
+                android:id="@+id/imageView1"
                 android:layout_width="match_parent"
-                android:layout_height="280dp"
-                android:src="@drawable/hallsmall">
+                android:layout_height="280dp">
+<!--                android:src="@drawable/hallsmall">-->
             </ImageView>
         </LinearLayout>
 
@@ -75,6 +79,7 @@
                 android:layout_width="100dp"
                 android:layout_height="58dp"
                 android:text="4구역"
+
                 android:id="@+id/btn4"></Button>
         </LinearLayout>
 

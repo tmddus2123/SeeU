@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:text="/ 후기쓰기"
+            android:fontFamily="@font/goyangilsanr"
             android:textColor="@color/main2"
             android:textStyle="bold"
             android:textSize="30sp" />
@@ -97,6 +98,7 @@
             android:layout_margin="15dp"
             android:gravity="center"
             android:background="#ffffff"
+            android:fontFamily="@font/goyangilsanl"
             android:hint="후기를 작성해주세요"
             android:textSize="20sp"
             android:textColor="#000000"
