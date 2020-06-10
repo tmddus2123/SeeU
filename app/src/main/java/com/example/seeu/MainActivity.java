@@ -65,8 +65,6 @@ public class MainActivity extends AppCompatActivity {
     ImageButton searchBtn;
     EditText searchStr;
     TextView NameTV;
-    Boolean login;
-    String userNickname;
 
 
     @Override
@@ -176,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
                     listView.invalidateViews();
                 } else {
                     db.collection("Concert List")
-                            .whereEqualTo("Name", searchStr.getText().toString().trim())
+                            .whereEqualTo("name", searchStr.getText().toString().trim())
                             .get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override

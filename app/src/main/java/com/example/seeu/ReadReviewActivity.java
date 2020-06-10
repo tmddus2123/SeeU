@@ -77,8 +77,8 @@ public class ReadReviewActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
-        area = (TextView) findViewById(R.id.areaNum);    //DB 어떤 구역 선택했눈지 받아오기
-        area.setText(Num.toString());
+        area = (TextView) findViewById(R.id.areaNum);
+        area.setText(Num.toString()+"구역");
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
@@ -91,7 +91,7 @@ public class ReadReviewActivity extends AppCompatActivity {
 
         //데이터 읽기 Posting컬렉션 에서 내가 누른 seatID와 seatID가 동일한 것들만 출력
         db.collection("Posting")
-                //.whereEqualTo("Name", Name)
+                .whereEqualTo("name", Name)
                 .whereEqualTo("seat", Num)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
