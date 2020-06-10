@@ -81,8 +81,8 @@ public class ConcertActivity extends AppCompatActivity {
         for(Integer a=1;a<17;a++){
             final Integer b = a;
             db.collection("Posting")
-                    .whereEqualTo("Name", concert)
-                    .whereEqualTo("Seat",a.toString())
+                    .whereEqualTo("name", concert)
+                    .whereEqualTo("seat",a.toString())
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
