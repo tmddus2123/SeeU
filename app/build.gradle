@@ -37,6 +37,12 @@ dependencies {
     // add SDKs for any other desired Firebase products
     // https://firebase.google.com/docs/android/setup#available-libraries
 }
+dependencies {
+    // FirebaseUI Storage only
+    implementation 'com.google.firebase:firebase-storage:19.1.0'
+    implementation 'com.firebaseui:firebase-ui-storage:4.3.1'
+
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
