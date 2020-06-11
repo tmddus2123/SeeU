@@ -62,6 +62,7 @@ public class ConcertActivity extends AppCompatActivity {
 
         for(int i=0;i<16;i++){
             btnArray[i] = (Button)findViewById(btnID[i]);
+            btnArray[i].setBackgroundColor(Color.parseColor("#D3D3D3"));
         }
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
         Intent getintent = getIntent();
