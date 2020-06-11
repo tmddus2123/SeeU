@@ -1,6 +1,7 @@
 package com.example.seeu.ReadReview;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -12,6 +13,8 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.seeu.R;
 
@@ -56,28 +59,28 @@ public class PostAdapter extends BaseAdapter {
             }
         });
 
-        ImageView image=(ImageView)convertView.findViewById(R.id.picture);
+        ImageView image=(ImageView) convertView.findViewById(R.id.picture);
         TextView review=(TextView)convertView.findViewById(R.id.review);
-        TextView UserID=(TextView)convertView.findViewById(R.id.UserName);
+        TextView nickName=(TextView)convertView.findViewById(R.id.Nickname);
         RatingBar rating=(RatingBar)convertView.findViewById(R.id.ratingBar);
 
-        image.setImageResource(Post.get(position).getpic());
+        //image.set(Post.get(position).getPicName());
         review.setText(Post.get(position).gettext());
-        UserID.setText(Post.get(position).getUserID());
+        nickName.setText(Post.get(position).getNickname());
         rating.setRating(Post.get(position).getrating());
 
         return convertView;
     }
 
-    public void addItem(String Name,String Seat,String UserID,String Nickname, int image,String Review,float rating){
+    public void addItem(String Name, String Seat, String UserID, String Nickname, String PicName, String Review, float rating){
         Posting post = new Posting();
 
         post.setName(Name);
         post.setSeat(Seat);
-        post.setNickname(Nickname);
         post.setUserID(UserID);
+        post.setNickname(Nickname);
         post.setText(Review);
-        post.setPic(image);
+        post.setPicName(PicName);
         post.setRating(rating);
 
         Post.add(post);

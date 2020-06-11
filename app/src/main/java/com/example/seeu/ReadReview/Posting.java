@@ -1,23 +1,25 @@
 package com.example.seeu.ReadReview;
 
+import android.graphics.Bitmap;
+
 public class Posting {
 
     private String Name;
     private String Seat;
     private String UserID;
     private String Nickname;
-    private int Pic;
+    private String PicName;
     private String Text;
     private float Rating;
 
     public Posting() {}
 
-    public Posting(String Name, String Seat, String UserID, String nickname, int pic, String text, float rating){
+    public Posting(String Name, String Seat, String UserID, String nickname, String picname, String text, float rating){
         this.Name=Name;
         this.Seat=Seat;
         this.UserID=UserID;
         this.Nickname=nickname;
-        this.Pic=pic;
+        this.PicName=picname;
         this.Text=text;
         this.Rating=rating;
     }
@@ -34,8 +36,8 @@ public class Posting {
     public void setNickname(String Nick){
         Nickname=Nick;
     }
-    public void setPic(int pic){
-        Pic=pic;
+    public void setPicName(String picname){
+        PicName=picname;
     }
     public void setText(String text){
         Text=text;
@@ -60,8 +62,8 @@ public class Posting {
         return Nickname;
     }
 
-    public int getpic() {
-        return Pic;
+    public String getPicName() {
+        return PicName;
     }
 
     public String gettext() {

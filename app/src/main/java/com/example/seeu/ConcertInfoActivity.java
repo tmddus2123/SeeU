@@ -27,9 +27,7 @@ public class ConcertInfoActivity extends AppCompatActivity {
     FirebaseFirestore db;
     Button weblink, maplink;
     TextView concertName, concertLoc, concertCall, concertCnt, concertWEB;
-    String Loc, Call, WEB, Latitude, Longitude, Name;
-    Integer Cnt;
-
+    String Loc, WEB, Latitude, Longitude, Name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +39,6 @@ public class ConcertInfoActivity extends AppCompatActivity {
         ab.hide();
 
         db = FirebaseFirestore.getInstance();
-
 
         weblink = (Button) findViewById(R.id.webBtn);
         maplink = (Button) findViewById(R.id.MapBtn);
@@ -63,9 +60,6 @@ public class ConcertInfoActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         Loc = (String) document.getString("Loc");
-                        /*String cName = document.getData().get("Name").toString();
-                        concertName.setText(cName);
-                         */
                         concertLoc.setText(document.getString("Loc"));
                         concertCall.setText(document.getString("Call"));
                         concertCnt.setText(String.valueOf(document.get("Cnt")));
@@ -100,7 +94,6 @@ public class ConcertInfoActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 intent.setPackage("com.google.android.apps.maps");
                 startActivity(intent);
-
             }
         });
     }

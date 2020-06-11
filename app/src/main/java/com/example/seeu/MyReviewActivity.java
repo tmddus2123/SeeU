@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.seeu.MyReview.ListViewItem;
 import com.example.seeu.MyReview.MyListAdapter;
@@ -65,15 +66,15 @@ public class MyReviewActivity extends AppCompatActivity {
         // 가져온 문서에서 닉네임 받아와서 출력
 
         db.collection("Posting")
-                .whereEqualTo("UserID", docRef.getId())
+                .whereEqualTo("userID", docRef.getId())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                concertName = document.getString("Name");
-                                concertSeat = document.getString("Seat") + " 구역";
+                                concertName = document.getString("name");
+                                concertSeat = document.getString("seat");
                                 concertText = document.getString("text");
                                 arrayAdapter.addItem(concertName, concertSeat, concertText);
                                 myRList.invalidateViews();
@@ -92,12 +93,17 @@ public class MyReviewActivity extends AppCompatActivity {
         // 검색된 리스트 클릭하면 ConcertActivity로 이동
         myRList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                TextView concertTV = (TextView) view.findViewById(R.id.ConcertTV);
+                TextView seatTV = (TextView) view.findViewById(R.id.SeatTV);
+                String concert = concertTV.getText().toString();
+                String seat = seatTV.getText().toString();
+                Log.d("Get Concert Name", concert);
+                Log.d("Get Concert Seat", seat);
                 Intent intent = new Intent(getApplicationContext(), ReadReviewActivity.class);
-                /* 공연장 이름을 콘서트 액티비티에 넘겨준다. */
-                intent.putExtra("concertName", concertName);
-                intent.putExtra("concertSeat", concertSeat);
+                /* 공연장 이름과 구역을 콘서트 액티비티에 넘겨준다. */
+                intent.putExtra("concertName", concert);
+                intent.putExtra("concertSeat", seat);
                 startActivity(intent);
             }
         });
