@@ -71,6 +71,12 @@ public class ConcertActivity extends AppCompatActivity {
         if(concert.equals("울산 현대예술관 소공연장")){
             imageView.setImageResource(R.drawable.hallsmall);
         }
+        else if(concert.equals("울산 현대예술관 대공연장")){
+            imageView.setImageResource(R.drawable.ulsanbig);
+        }
+        else if(concert.equals("충북대학교 개신문화관")){
+            imageView.setImageResource(R.drawable.gaesinhall);
+        }
         else if(concert.equals("두산 아트센터 연강홀")){
             imageView.setImageResource(R.drawable.hall2);
         }
