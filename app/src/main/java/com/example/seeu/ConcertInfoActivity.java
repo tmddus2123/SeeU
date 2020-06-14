@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,6 +29,7 @@ public class ConcertInfoActivity extends AppCompatActivity {
     Button weblink, maplink;
     TextView concertName, concertLoc, concertCall, concertCnt, concertWEB;
     String Loc, WEB, Latitude, Longitude, Name;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +48,27 @@ public class ConcertInfoActivity extends AppCompatActivity {
         concertLoc = (TextView) findViewById(R.id.concertLoc);
         concertCall = (TextView) findViewById(R.id.concertCall);
         concertCnt = (TextView) findViewById(R.id.concertCnt);
-        concertWEB = (TextView) findViewById(R.id.concertWEB);
+        imageView = (ImageView) findViewById(R.id.concertView);
 
         Intent get = getIntent();
         Name = get.getStringExtra("concertName");
         concertName.setText(Name);
+
+        if(Name.equals("울산 현대예술관 소공연장")){
+            imageView.setImageResource(R.drawable.ulsan);
+        }
+        else if(Name.equals("울산 현대예술관 대공연장")){
+            imageView.setImageResource(R.drawable.ulsan);
+        }
+        else if(Name.equals("두산 아트센터 연강홀")){
+            imageView.setImageResource(R.drawable.dusan1);
+        }
+        else if(Name.equals("나루 아트센터")){
+            imageView.setImageResource(R.drawable.naru);
+        }
+        else if(Name.equals("충북대학교 개신문화관")){
+            imageView.setImageResource(R.drawable.gaesin);
+        }
 
         DocumentReference docRef = db.collection("Concert List").document(Name);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -63,8 +81,6 @@ public class ConcertInfoActivity extends AppCompatActivity {
                         concertLoc.setText(document.getString("Loc"));
                         concertCall.setText(document.getString("Call"));
                         concertCnt.setText(String.valueOf(document.get("Cnt")));
-                        concertWEB.setText(document.getString("WEB"));
-                        WEB=document.getString("WEB");
                         Latitude=document.getString("Latitude");
                         Longitude=document.getString("Longitude");
                         Log.d("TAG", "DocumentSnapshot data: " + document.getData());

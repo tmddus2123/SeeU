@@ -58,28 +58,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="4dp">
+            android:layout_marginLeft="9dp">
 
             <Button
-                android:layout_width="100dp"
-                android:layout_height="58dp"
+                android:layout_width="90dp"
+                android:layout_height="50dp"
                 android:text="1구역"
+                android:layout_marginRight="10dp"
                 android:id="@+id/btn1"></Button>
             <Button
-                android:layout_width="100dp"
-                android:layout_height="58dp"
+                android:layout_width="90dp"
+                android:layout_height="50dp"
                 android:text="2구역"
+                android:layout_marginRight="10dp"
                 android:id="@+id/btn2"></Button>
             <Button
-                android:layout_width="100dp"
-                android:layout_height="58dp"
+                android:layout_width="90dp"
+                android:layout_height="50dp"
                 android:text="3구역"
+                android:layout_marginRight="10dp"
                 android:id="@+id/btn3"></Button>
             <Button
-                android:layout_width="100dp"
-                android:layout_height="58dp"
+                android:layout_width="90dp"
+                android:layout_height="50dp"
                 android:text="4구역"
-
+                android:layout_marginRight="10dp"
                 android:id="@+id/btn4"></Button>
         </LinearLayout>
 
@@ -87,28 +90,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="4dp"
+            android:layout_marginLeft="9dp"
             android:layout_marginTop="5dp">
 
             <Button
-                android:layout_width="100dp"
-                android:layout_height="58dp"
+                android:layout_width="90dp"
+                android:layout_height="50dp"
                 android:text="5구역"
+                android:layout_marginRight="10dp"
                 android:id="@+id/btn5"></Button>
             <Button
-                android:layout_width="100dp"
-                android:layout_height="58dp"
+                android:layout_width="90dp"
+                android:layout_height="50dp"
                 android:text="6구역"
+                android:layout_marginRight="10dp"
                 android:id="@+id/btn6"></Button>
             <Button
-                android:layout_width="100dp"
-                android:layout_height="58dp"
+                android:layout_width="90dp"
+                android:layout_height="50dp"
                 android:text="7구역"
+                android:layout_marginRight="10dp"
                 android:id="@+id/btn7"></Button>
             <Button
-                android:layout_width="100dp"
-                android:layout_height="58dp"
+                android:layout_width="90dp"
+                android:layout_height="50dp"
                 android:text="8구역"
+                android:layout_marginRight="10dp"
                 android:id="@+id/btn8"></Button>
         </LinearLayout>
 
@@ -116,28 +123,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="4dp"
+            android:layout_marginLeft="9dp"
             android:layout_marginTop="5dp">
 
             <Button
-                android:layout_width="100dp"
-                android:layout_height="58dp"
+                android:layout_width="90dp"
+                android:layout_height="50dp"
                 android:text="9구역"
+                android:layout_marginRight="10dp"
                 android:id="@+id/btn9"></Button>
             <Button
-                android:layout_width="100dp"
-                android:layout_height="58dp"
+                android:layout_width="90dp"
+                android:layout_height="50dp"
                 android:text="10구역"
+                android:layout_marginRight="10dp"
                 android:id="@+id/btn10"></Button>
             <Button
-                android:layout_width="100dp"
-                android:layout_height="58dp"
+                android:layout_width="90dp"
+                android:layout_height="50dp"
                 android:text="11구역"
+                android:layout_marginRight="10dp"
                 android:id="@+id/btn11"></Button>
             <Button
-                android:layout_width="100dp"
-                android:layout_height="58dp"
+                android:layout_width="90dp"
+                android:layout_height="50dp"
                 android:text="12구역"
+                android:layout_marginRight="10dp"
                 android:id="@+id/btn12"></Button>
         </LinearLayout>
 
@@ -145,28 +156,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="4dp"
+            android:layout_marginLeft="9dp"
             android:layout_marginTop="5dp">
 
             <Button
-                android:layout_width="100dp"
-                android:layout_height="58dp"
+                android:layout_width="90dp"
+                android:layout_height="50dp"
                 android:text="13구역"
+                android:layout_marginRight="10dp"
                 android:id="@+id/btn13"></Button>
             <Button
-                android:layout_width="100dp"
-                android:layout_height="58dp"
+                android:layout_width="90dp"
+                android:layout_height="50dp"
                 android:text="14구역"
+                android:layout_marginRight="10dp"
                 android:id="@+id/btn14"></Button>
             <Button
-                android:layout_width="100dp"
-                android:layout_height="58dp"
+                android:layout_width="90dp"
+                android:layout_height="50dp"
                 android:text="15구역"
+                android:layout_marginRight="10dp"
                 android:id="@+id/btn15"></Button>
             <Button
-                android:layout_width="100dp"
-                android:layout_height="58dp"
+                android:layout_width="90dp"
+                android:layout_height="50dp"
                 android:text="16구역"
+                android:layout_marginRight="10dp"
                 android:id="@+id/btn16"></Button>
 
         </LinearLayout>
