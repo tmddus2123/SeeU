@@ -24,6 +24,8 @@ android {
 
 }
 
+
+
 /* 파이어베이스 - 앱 수준의 build.gradle  */
 apply plugin: 'com.android.application'
 // Add this line
@@ -39,7 +41,11 @@ dependencies {
 }
 dependencies {
     // FirebaseUI Storage only
-    implementation 'com.google.firebase:firebase-storage:19.1.0'
+    implementation 'com.google.firebase:firebase-storage:19.1.1'
+    implementation ('com.github.bumptech.glide:glide:4.8.0'){
+        exclude group:'androidx.annotation'
+    }
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
     implementation 'com.firebaseui:firebase-ui-storage:4.3.1'
 
 }

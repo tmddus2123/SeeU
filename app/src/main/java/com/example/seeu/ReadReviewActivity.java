@@ -1,6 +1,7 @@
 package com.example.seeu;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresPermission;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -68,6 +69,10 @@ public class ReadReviewActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+
+    StorageReference storageRef = storage.getReference();
+    StorageReference pathReference = storageRef.child("images/" + filename);
 
     private DocumentReference docRef;
 
@@ -96,6 +101,8 @@ public class ReadReviewActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
 
+        Intent getintent = getIntent();
+
         img = (ImageView) findViewById(R.id.picture);
 
         Postlist = (ListView) findViewById(R.id.listview3);
@@ -119,20 +126,6 @@ public class ReadReviewActivity extends AppCompatActivity {
                                 review = document.getString("text");
                                 filename = document.getString("picName");
                                 rating = document.getDouble("rating");
-                                StorageReference storageRef = firebaseStorage.getReferenceFromUrl("gs://seeu-70a59.appspot.com").child("images/"+filename);
-                                //이미지 안됨ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ////////
-                                storageRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Uri> task) {
-                                        if(task.isSuccessful()){
-                                            Glide.with(ReadReviewActivity.this)
-                                                    .load(task.getResult())
-                                                    .into(img);
-                                        } else{
-                                            Toast.makeText(ReadReviewActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
-                                        }
-                                    }
-                                });
 
                                 arrayAdapter.addItem(Name, Num, userid, nickname, filename, review, (float) rating);
                                 Postlist.invalidateViews();
@@ -144,10 +137,30 @@ public class ReadReviewActivity extends AppCompatActivity {
                         }
                     }
                 });
+     /*   try{
+            File path = new File("Folder path");
+
+            final File file=new File(path,filename);
+
+            file.createNewFile();
+
+            final FileDownloadTask fileDownloadTask = pathReference.getFile(file);
+            fileDownloadTask.addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+
+                }
+            });
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        */
+
         /*deleteBtn.setOnClickListener(new View.OnClickListener(){ //삭제버튼
             @Override
             public void onClick(View v) {
-                db.collection("Posting").document(userid)//삭제하는 조건,,,???? 문서 번호????
+                db.collection("Posting").document(userid)//
                         .delete()
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -160,52 +173,9 @@ public class ReadReviewActivity extends AppCompatActivity {
 
         //현재 로그인 되어있는 UserID랑 리뷰 적힌 UserID와 비교 동일하면 수정과 삭제 가능
         docRef = db.collection(FirebaseID.user).document(mUser.getUid());
+        Log.d(TAG, docRef + "=>" + userid);
         if (docRef.equals(userid)) {//같으면
             deleteBtn.setVisibility(View.VISIBLE);//버튼 보이ㅣㄱ?
         }
-
-
-
     }
-
-    /*protected void a(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                filePath = data.getData();
-                Log.d(TAG, "uri:" + String.valueOf(filePath));
-
-                try { //Uri파일을 비트맵으로 만들어서 이미지뷰에 집어넣음
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                    img.setImageBitmap(bitmap);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(this, "사진 선택 취소", Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
-    private void getFile() {//업로드하는 함수
-        if (filePath != null) {
-            //스토리지
-           FirebaseStorage storage = FirebaseStorage.getInstance();
-            //스토리지 주소와 폴더 파일명 지정
-            StorageReference storageRef = storage.getReferenceFromUrl("gs://seeu-70a59.appspot.com").child("images/" + filename);
-            storageRef.getFile(filePath)//성공시
-                    .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            Log.d(TAG,"성공");
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.d(TAG,"실패");
-                        }
-                    });
-        }
-    }*/
 }
