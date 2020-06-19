@@ -168,13 +168,12 @@ public class MainActivity extends AppCompatActivity {
             // 검색버튼 누르면 (EditText의 검색어로 )검색
             @Override
             public void onClick(View view) {
-
                 if (searchStr.getText().toString().equals("")) {
                     arrayList.clear();
                     listView.invalidateViews();
                 } else {
                     db.collection("Concert List")
-                            .whereEqualTo("name", searchStr.getText().toString().trim())
+                            .whereEqualTo("Name", searchStr.getText().toString().trim())
                             .get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override

@@ -80,7 +80,7 @@ public class ConcertInfoActivity extends AppCompatActivity {
                         Loc = (String) document.getString("Loc");
                         concertLoc.setText(document.getString("Loc"));
                         concertCall.setText(document.getString("Call"));
-                        concertCnt.setText(String.valueOf(document.get("Cnt")));
+                        concertCnt.setText(document.getString("Cnt"));
                         Latitude=document.getString("Latitude");
                         Longitude=document.getString("Longitude");
                         Log.d("TAG", "DocumentSnapshot data: " + document.getData());

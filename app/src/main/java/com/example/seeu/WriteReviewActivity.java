@@ -34,6 +34,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -73,7 +75,7 @@ public class WriteReviewActivity extends AppCompatActivity {
     Button Back;
     TextView AreaTV;
     TextView ConcertTV;
-
+    Integer Cnt;
     ListView Postlist;
     ArrayList<Posting> arrayList = new ArrayList<Posting>();
     PostAdapter arrayAdapter;
@@ -105,6 +107,20 @@ public class WriteReviewActivity extends AppCompatActivity {
         ConcertTV = (TextView) findViewById(R.id.cccc);
         ConcertTV.setText(concertName.toString());
 
+        db.collection("Concert List")
+                .whereEqualTo("Name", concertName)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for(QueryDocumentSnapshot document : task.getResult()) {
+                                Cnt = Integer.parseInt(document.getString("Cnt"));
+                            }
+                        }
+                    }
+                });
+
         AreaTV = (TextView) findViewById(R.id.aaaa);
         AreaTV.setText(concertSeat.toString());
 
@@ -112,6 +128,7 @@ public class WriteReviewActivity extends AppCompatActivity {
         mUser = mAuth.getCurrentUser();
 
         arrayAdapter = new PostAdapter();
+
 
         addimage = findViewById(R.id.addImage);
 
@@ -139,10 +156,12 @@ public class WriteReviewActivity extends AppCompatActivity {
                                 if (document.exists()) {
                                     nickname = document.getData().get("UserNickname").toString();
                                     userid = document.getData().get("documentID").toString();
-
+                                    Cnt++;
+                                    Log.d("this is a count", Cnt.toString());
                                     uploadFile(); //스토리지에 업로드
                                     Posting Post = new Posting(concertName, concertSeat, userid, nickname, filename, msg, rating);
                                     db.collection("Posting").document().set(Post); //디비에 저장
+                                    db.collection("Concert List").document(concertName).update("Cnt", Cnt.toString());
 
                                     Log.d(TAG, "DocumentSnapshot data : " + document.getData().get("UserNickname"));
                                     Log.d(TAG, "DocumentSnapshot data : " + document.getData().get("documentID"));

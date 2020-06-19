@@ -9,12 +9,10 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="140dp"
+        android:layout_height="80dp"
         android:layout_marginLeft="10dp"
-        app:srcCompat="@drawable/small_logo"
-        android:scaleType="fitXY"/>
+        android:src="@drawable/small_logo"/>
 
 
     <androidx.viewpager.widget.ViewPager
