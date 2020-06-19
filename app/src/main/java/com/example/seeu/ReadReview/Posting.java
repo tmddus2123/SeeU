@@ -49,29 +49,22 @@ public class Posting {
     public String getName(){
         return Name;
     }
-
     public String getSeat() {
         return Seat;
     }
-
     public  String getUserID() {
         return UserID;
     }
-
     public String getNickname() {
         return Nickname;
     }
-
     public String getPicName() {
         return PicName;
     }
-
     public String gettext() {
         return Text;
     }
-
     public float getrating() {
         return Rating;
     }
-
 }

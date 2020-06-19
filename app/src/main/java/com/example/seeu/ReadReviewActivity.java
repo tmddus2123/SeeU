@@ -65,8 +65,6 @@ public class ReadReviewActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 0;
     private Uri filePath;
 
-    private Button deleteBtn;
-
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -82,9 +80,6 @@ public class ReadReviewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read_review);
-
-        deleteBtn = (Button) findViewById(R.id.delReview);
-
         /*Action Bar(Title bar) 받아와서 없애기*/
         ActionBar ab = getSupportActionBar();
         ab.hide();
@@ -126,8 +121,10 @@ public class ReadReviewActivity extends AppCompatActivity {
                                 review = document.getString("text");
                                 filename = document.getString("picName");
                                 rating = document.getDouble("rating");
-
                                 arrayAdapter.addItem(Name, Num, userid, nickname, filename, review, (float) rating);
+
+                                //현재 로그인 되어있는 UserID랑 리뷰 적힌 UserID와 비교 동일하면 삭제 가능
+
                                 Postlist.invalidateViews();
 
                                 Log.d(TAG, document.getId() + " => " + document.getData());
@@ -136,46 +133,8 @@ public class ReadReviewActivity extends AppCompatActivity {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }
+
                 });
-     /*   try{
-            File path = new File("Folder path");
 
-            final File file=new File(path,filename);
-
-            file.createNewFile();
-
-            final FileDownloadTask fileDownloadTask = pathReference.getFile(file);
-            fileDownloadTask.addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-
-                }
-            });
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        */
-
-        /*deleteBtn.setOnClickListener(new View.OnClickListener(){ //삭제버튼
-            @Override
-            public void onClick(View v) {
-                db.collection("Posting").document(userid)//
-                        .delete()
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "DocumentSnapshot successfully deleted!");
-                            }
-                        });
-            }
-        });*/
-
-        //현재 로그인 되어있는 UserID랑 리뷰 적힌 UserID와 비교 동일하면 수정과 삭제 가능
-        docRef = db.collection(FirebaseID.user).document(mUser.getUid());
-        Log.d(TAG, docRef + "=>" + userid);
-        if (docRef.equals(userid)) {//같으면
-            deleteBtn.setVisibility(View.VISIBLE);//버튼 보이ㅣㄱ?
-        }
     }
 }
