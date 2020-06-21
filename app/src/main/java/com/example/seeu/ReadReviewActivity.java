@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresPermission;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -122,9 +123,6 @@ public class ReadReviewActivity extends AppCompatActivity {
                                 filename = document.getString("picName");
                                 rating = document.getDouble("rating");
                                 arrayAdapter.addItem(Name, Num, userid, nickname, filename, review, (float) rating);
-
-                                //현재 로그인 되어있는 UserID랑 리뷰 적힌 UserID와 비교 동일하면 삭제 가능
-
                                 Postlist.invalidateViews();
 
                                 Log.d(TAG, document.getId() + " => " + document.getData());
@@ -135,6 +133,5 @@ public class ReadReviewActivity extends AppCompatActivity {
                     }
 
                 });
-
     }
 }

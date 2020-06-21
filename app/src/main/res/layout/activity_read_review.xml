@@ -24,7 +24,7 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="17dp"
+            android:layout_marginTop="30dp"
             android:text="/ 후기보기"
             android:textColor="@color/main2"
             android:textSize="30sp"
@@ -34,16 +34,18 @@
             android:id="@+id/areaNum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="17dp"
-            android:layout_marginLeft="20sp"
-            android:textSize="30sp" />
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="25sp"
+            android:textSize="30sp"
+            android:textColor="#000000"/>
 
         <TextView
             android:text="구역"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="17dp"
-            android:textSize="30sp" />
+            android:layout_marginTop="30dp"
+            android:textSize="30sp"
+            android:textColor="#000000"/>
 
     </LinearLayout> <!--로고 레이아웃-->
 
