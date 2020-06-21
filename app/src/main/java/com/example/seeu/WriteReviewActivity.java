@@ -168,7 +168,6 @@ public class WriteReviewActivity extends AppCompatActivity {
                                 } else
                                     Log.d(TAG, "No such document");
                             }
-                            //이미지만 넣으면,,,<!
                             Intent intent = new Intent(getBaseContext(), ReadReviewActivity.class);
                             intent.putExtra("concertName", concertName);
                             intent.putExtra("concertSeat", concertSeat);
@@ -230,6 +229,12 @@ public class WriteReviewActivity extends AppCompatActivity {
             //스토리지 주소와 폴더 파일명 지정
             StorageReference storageRef = storage.getReferenceFromUrl("gs://seeu-70a59.appspot.com").child("images/" + filename);
             storageRef.putFile(filePath)//성공시
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(getApplicationContext(), "업로드 중...", Toast.LENGTH_SHORT).show();
+                        }
+                    })
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
